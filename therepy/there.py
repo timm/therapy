@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """  
 Name:
-    duo.py  
+    there.py : learn how to change, for the better  
   
 Version:
     0.2  
   
 Usage:
-    duo [options]  
+    there [options]  
   
 Options:
   
@@ -19,11 +19,11 @@ Options:
 Examples:
   
     - Installation: `sh INSTALL.md`  
-    - Unit tests. 'pytest.py  duo.py'  
-    - One Unit test. `pytest.py -s -k tion1 duo.py`   
-    - Continual tests: `rerun 'pytest duo.py'`  
+    - Unit tests. 'pytest.py  there.py'  
+    - One Unit test. `pytest.py -s -k tion1 there.py`   
+    - Continual tests: `rerun 'pytest there.py'`  
     - Documentation: `sh DOC.md`  
-    - Add some shell tricks: `sh SHELL.md`  
+    - Add some shell tricks: `sh SH.md`  
   
 Notes:
     Simplest to tricky-est, this code divides  
@@ -303,14 +303,12 @@ class Bins:
     def mid(z): return (n(z.xlo) + n(z.xhi)) / 2
     def per(z=0.5): return lst[int(len(lst) * z)][x]
     def n(z): return lst[min(len(lst) - 1, z)][x]
+    def finalize(z): z.xlo, z.xhi = n(z.xlo), n(z.xhi); return z
     # --------------------------------------------------------------
     lst = sorted((z for z in lst if z[x] != "?"), key=lambda z: z[x])
     all = Bin(0, x)
     cohen = cohen * (per(.9) - per(.1)) / 2.54
-    out = merge(split())
-    for bin in out:
-      bin.xlo, bin.xhi = n(bin.xlo), n(bin.xhi)
-    return out
+    return [finalize(bin) for bin in merge(split())]
 
 
 def smo(tab, n1=10):
