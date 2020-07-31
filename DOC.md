@@ -22,4 +22,4 @@ mv $$ $f.py
 
 pdoc3 -o $d --template-dir $d --force --html $f.py
 
-pydoc3 $f | bat -plman 
+(cd $Ell/therapy; pydoc3 thera | bat -plman )
