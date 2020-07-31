@@ -1,5 +1,5 @@
 <center>
-<img src="search.gif" width=500
+<img src="search.gif" width=500><br>
 <p><a href="LICENSE.md">&copy; 2020</a>, Tim Menzies<br>
 <a href="mailto:timm@ieee.org">timm@ieee.org</a><br> 
 <a href="http://menzies.us">http://menzies.us</a>
