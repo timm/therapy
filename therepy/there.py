@@ -404,8 +404,8 @@ def test_rows():
 def test_tab2():
   rows = Rows(diabetes)
   rows.bins('tested_positive')
-  for row in rows.all:
-    print(row.bins)
+  for r in rows.all:
+    print(r.x, rows.all.col.all[r.x], r.xlo, r.xhi, r.val)
 
 
 def rest_dom(n=20):
