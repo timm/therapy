@@ -1,2 +1,2 @@
 RewriteEngine On
-Redirect 301 "/index.html" "/therepy.html"
+Redirect 301 "/index.html" "/there.html"
