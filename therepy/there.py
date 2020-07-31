@@ -144,9 +144,8 @@ class Rows(o):
     Create from `src`, which could be a list,
     a `.csv` file name, or a string.
     """
-    i.all = []
+    i.all, i._bins = [], {}
     i.cols = o(all={}, w={}, klass=None, x={}, y={}, syms={}, nums={})
-    i._bins = {}
     [i.add(row) for row in csv(src)]
 
   def add(i, row):
@@ -184,25 +183,24 @@ class Rows(o):
     `goal=None` then just divide into sqrt(N) bins, that differ
     by more than a small amount (at least `.2*sd`).
     """
-    def apply(lst, x):
+    def apply2Numerics(lst, x):
       if x == "?":
         return x
-      n = len(lst)
       for pos, bin in enumerate(lst):
-        # print(x, bin.xlo)
         if x < bin.xlo:
           break
         if bin.xlo <= x < bin.xhi:
           break
-      return round((pos + 1) / n, 2)
+      return round((pos + 1) / len(lst), 2)
     # ----------------
     for x in i.cols.nums:
-      # find the bins
       i._bins[x] = bins = Bins.nums(
           i.all, x=x, goal=goal, cohen=cohen, y=i.cols.klass)
-      # apply the bins
-      for row in i.all:
-        row.bins[x] = apply(bins, row[x])
+    for row in i.all:
+      row.bins[x] = apply2Numerics(i._bins, row[x])
+    for x in i.cols.syms:
+      i._bins[x] = Bins.syms(i.all, x=x, goal=goal, y=i.cols.klass)
+    return i._bins
 
 
 class Bin(o):
