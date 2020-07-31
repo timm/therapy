@@ -21,7 +21,9 @@ fi
 
 [ "$tricks" -eq 0 ] && exit 0
 
+echo ""
 echo "Installing tricks..."
+echo ""
 
 want=$Ell/.travis.yml
 [ -f "$want" ] || cat<<'EOF'>$want
@@ -40,6 +42,36 @@ EOF
 Var=$Ell/.var
 mkdir -p $Var
  
+want=$Var/banner
+echo "Ensuring $want exists..."
+[ -f "$want" ] || cat<<'EOF'>$want
+EOF
+
+want=$Var/bashrc
+echo "Ensuring $want exists..."
+[ -f "$want" ] || cat<<'EOF'>$want
+f=$Ell/therapy/there  
+alias ok="pytest.py  $f.py"
+alias spy="rerun 'pytest $f.py'"    
+ok1() { pytest -s -k $1 $f.py;  }  
+
+alias gg="git pull"   
+alias gs="git status"   
+alias gp="git commit -am 'saving'; git push; git status"    
+alias doc="sh $Ell/DOC.md; "
+
+matrix() { nice -20 cmatrix -b -C cyan;   }
+reload() { . $Ell/SH.md;     }
+vims()   { vim -u $Ell/.var/vimrc +PluginInstall +qall; }
+
+alias vi="vim    -u $Ell/.var/vimrc"
+alias tmux="tmux -f $Ell/.var/tmuxrc"
+
+here()  { cd $1; basename `pwd`; }    
+
+PROMPT_COMMAND='echo -ne "🔆 $(git branch 2>/dev/null | grep '^*' | colrm 1 2):";PS1="$(here ..)/$(here .):\!\e[m ▶ "'     
+EOF
+
 
 want=$Var/vimrc;
 echo "Ensuring $want exists..."

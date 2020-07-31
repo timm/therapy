@@ -77,7 +77,9 @@ timm@ieee.org<br>
 <a href="http://menzies.us">http://menzies.us</a>
 </p>
 <h2 id="copyright">Copyright</h2>
-<p>(c) 2020 Tim Menzies, MIT license,<br>
+<p>(c) 2020 Tim Menzies, <br>
+MIT license,
+<br>
 <a href="https://opensource.org/licenses/MIT">https://opensource.org/licenses/MIT</a></p>
 <details class="source">
 <summary>
@@ -124,7 +126,8 @@ Author:
    http://menzies.us  
   
 Copyright:
-   (c) 2020 Tim Menzies, MIT license,  
+   (c) 2020 Tim Menzies,   
+   MIT license,    
    https://opensource.org/licenses/MIT  
   
 &#34;&#34;&#34;
@@ -229,9 +232,8 @@ class Rows(o):
     Create from `src`, which could be a list,
     a `.csv` file name, or a string.
     &#34;&#34;&#34;
-    i.all = []
+    i.all, i._bins = [], {}
     i.cols = o(all={}, w={}, klass=None, x={}, y={}, syms={}, nums={})
-    i._bins = {}
     [i.add(row) for row in csv(src)]
 
   def add(i, row):
@@ -269,25 +271,24 @@ class Rows(o):
     `goal=None` then just divide into sqrt(N) bins, that differ
     by more than a small amount (at least `.2*sd`).
     &#34;&#34;&#34;
-    def apply(lst, x):
+    def apply2Numerics(lst, x):
       if x == &#34;?&#34;:
         return x
-      n = len(lst)
       for pos, bin in enumerate(lst):
-        # print(x, bin.xlo)
         if x &lt; bin.xlo:
           break
         if bin.xlo &lt;= x &lt; bin.xhi:
           break
-      return round((pos + 1) / n, 2)
+      return round((pos + 1) / len(lst), 2)
     # ----------------
     for x in i.cols.nums:
-      # find the bins
       i._bins[x] = bins = Bins.nums(
           i.all, x=x, goal=goal, cohen=cohen, y=i.cols.klass)
-      # apply the bins
-      for row in i.all:
-        row.bins[x] = apply(bins, row[x])
+    for row in i.all:
+      row.bins[x] = apply2Numerics(i._bins, row[x])
+    for x in i.cols.syms:
+      i._bins[x] = Bins.syms(i.all, x=x, goal=goal, y=i.cols.klass)
+    return i._bins
 
 
 class Bin(o):
@@ -2383,9 +2384,8 @@ a <code>.<a title="there.csv" href="#there.csv">csv()</a></code> file name, or a
     Create from `src`, which could be a list,
     a `.csv` file name, or a string.
     &#34;&#34;&#34;
-    i.all = []
+    i.all, i._bins = [], {}
     i.cols = o(all={}, w={}, klass=None, x={}, y={}, syms={}, nums={})
-    i._bins = {}
     [i.add(row) for row in csv(src)]
 
   def add(i, row):
@@ -2423,25 +2423,24 @@ a <code>.<a title="there.csv" href="#there.csv">csv()</a></code> file name, or a
     `goal=None` then just divide into sqrt(N) bins, that differ
     by more than a small amount (at least `.2*sd`).
     &#34;&#34;&#34;
-    def apply(lst, x):
+    def apply2Numerics(lst, x):
       if x == &#34;?&#34;:
         return x
-      n = len(lst)
       for pos, bin in enumerate(lst):
-        # print(x, bin.xlo)
         if x &lt; bin.xlo:
           break
         if bin.xlo &lt;= x &lt; bin.xhi:
           break
-      return round((pos + 1) / n, 2)
+      return round((pos + 1) / len(lst), 2)
     # ----------------
     for x in i.cols.nums:
-      # find the bins
       i._bins[x] = bins = Bins.nums(
           i.all, x=x, goal=goal, cohen=cohen, y=i.cols.klass)
-      # apply the bins
-      for row in i.all:
-        row.bins[x] = apply(bins, row[x])</code></pre>
+    for row in i.all:
+      row.bins[x] = apply2Numerics(i._bins, row[x])
+    for x in i.cols.syms:
+      i._bins[x] = Bins.syms(i.all, x=x, goal=goal, y=i.cols.klass)
+    return i._bins</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -2489,25 +2488,24 @@ by more than a small amount (at least <code>.2*sd</code>).</p></div>
   `goal=None` then just divide into sqrt(N) bins, that differ
   by more than a small amount (at least `.2*sd`).
   &#34;&#34;&#34;
-  def apply(lst, x):
+  def apply2Numerics(lst, x):
     if x == &#34;?&#34;:
       return x
-    n = len(lst)
     for pos, bin in enumerate(lst):
-      # print(x, bin.xlo)
       if x &lt; bin.xlo:
         break
       if bin.xlo &lt;= x &lt; bin.xhi:
         break
-    return round((pos + 1) / n, 2)
+    return round((pos + 1) / len(lst), 2)
   # ----------------
   for x in i.cols.nums:
-    # find the bins
     i._bins[x] = bins = Bins.nums(
         i.all, x=x, goal=goal, cohen=cohen, y=i.cols.klass)
-    # apply the bins
-    for row in i.all:
-      row.bins[x] = apply(bins, row[x])</code></pre>
+  for row in i.all:
+    row.bins[x] = apply2Numerics(i._bins, row[x])
+  for x in i.cols.syms:
+    i._bins[x] = Bins.syms(i.all, x=x, goal=goal, y=i.cols.klass)
+  return i._bins</code></pre>
 </details>
 </dd>
 <dt id="there.Rows.header"><code class="name flex">

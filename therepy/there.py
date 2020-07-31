@@ -39,7 +39,8 @@ Author:
    http://menzies.us  
   
 Copyright:
-   (c) 2020 Tim Menzies, MIT license,  
+   (c) 2020 Tim Menzies,   
+   MIT license,    
    https://opensource.org/licenses/MIT  
   
 """
