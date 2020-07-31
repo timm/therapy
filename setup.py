@@ -1,13 +1,13 @@
 from setuptools import setup
 
 setup(
-    name='theraoy',
+    name='therepy',
     version='0.1',
     description='Module for building optimizers using data miners',
     author='Tim Menzies',
     author_email='timm@ieee.org',
-    url='http://menzies.us/therapy',
-    packages=['therapy'],
+    url='http://menzies.us/therepy',
+    packages=['therepy'],
     long_description="""\
         Optimizer, written as a data miner. Break the 
         data up into regions of 'bad' and 'better'. 

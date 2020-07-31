@@ -5,7 +5,7 @@ usage="sh DOC.md"
 Ell=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)  
 
 d=$Ell/docs   
-f=$Ell/therapy/thera
+f=$Ell/therepy/there
 
 mkdir -p $d  
   
@@ -22,4 +22,4 @@ mv $$ $f.py
 
 pdoc3 -o $d --template-dir $d --force --html $f.py
 
-(cd $Ell/therapy; pydoc3 thera | bat -plman )
+(cd $Ell/therepy; pydoc3 there | bat -plman )
