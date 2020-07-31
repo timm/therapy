@@ -13,7 +13,7 @@ alias gs="git status"
 alias gp="git commit -am 'saving'; git push; git status"    
 alias ok="pytest.py  $f.py"
 alias spy="rerun 'pytest $f.py'"    
-alias doc="sh $Ell/DOC.md"  
+alias doc="sh $Ell/DOC.md; "
 
 matrix() { nice -20 cmatrix -b -C cyan;   }
 reload() { . $Ell/SH.md;     }

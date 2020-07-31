@@ -21,5 +21,6 @@ awk '/^"""/ {i++}
 mv $$ $f.py  
 
 pdoc3 -o $d --template-dir $d --force --html $f.py
+mv $Ell/docs/there.html $Ell/docs/index.html
 
 (cd $Ell/therepy; pydoc3 there | bat -plman )
