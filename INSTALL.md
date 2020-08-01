@@ -50,10 +50,10 @@ EOF
 want=$Var/bashrc
 echo "Ensuring $want exists..."
 [ -f "$want" ] || cat<<'EOF'>$want
-f=$Ell/therapy/there  
+f=$Ell/therepy/there  
 alias ok="pytest.py  $f.py"
 alias spy="rerun 'pytest $f.py'"    
-ok1() { pytest -s -k $1 $f.py;  }  
+ok1() { cd $Ell; pytest -s -k $1 therepy;  }  
 
 alias gg="git pull"   
 alias gs="git status"   
@@ -61,7 +61,7 @@ alias gp="git commit -am 'saving'; git push; git status"
 alias doc="sh $Ell/DOC.md; "
 
 matrix() { nice -20 cmatrix -b -C cyan;   }
-reload() { . $Ell/SH.md;     }
+reload() { . $Ell/ELL.md;     }
 vims()   { vim -u $Ell/.var/vimrc +PluginInstall +qall; }
 
 alias vi="vim    -u $Ell/.var/vimrc"

@@ -13,6 +13,7 @@ Options:
   
     -h        Help.  
     -v        Verbose.  
+    -r=f      Function to run.   
     -s=n      Set random number seed [default: 1].  
     -k=n      Speed in knots [default: 10].  
   
@@ -198,7 +199,7 @@ class Rows(o):
       i._bins[x] = bins = Bins.nums(
           i.all, x=x, goal=goal, cohen=cohen, y=i.cols.klass)
     for row in i.all:
-      row.bins[x] = apply2Numerics(i._bins, row[x])
+      row.bins[x] = apply2Numerics(i._bins[x], row[x])
     for x in i.cols.syms:
       i._bins[x] = Bins.syms(i.all, x=x, goal=goal, y=i.cols.klass)
     return i._bins
@@ -240,6 +241,10 @@ class Bin(o):
       k.ys[x] = v + k.ys.get(x, 0)
     return k
 
+  def inc(i, y, want):
+    k = y == want
+    i.ys[k] = i.ys.get(k, 0)
+
 
 class Bins:
   "Bins is a farcade holding code to manage `bin`s."
@@ -252,10 +257,9 @@ class Bins:
       if xx != "?":
         if xx not in bins:
           bins[xx] = Bin(xx, x)
-        one = bins[xx]
-        klass = 1 if yy == goal else 0
-        one.ys.inc(klass)
-        all.ys.inc(klass)
+        now = bins[xx]
+        now.inc(yy, goal)
+        all.inc(yy, goal)
     return [Bins.score(one, all) for one in bins.values()]
 
   def nums(lst, x=0, y=-1, goal=None, cohen=.2,
@@ -270,17 +274,17 @@ class Bins:
       while n < 10 and n < len(lst) / 2:
         n *= 1.2
       for xhi, z in enumerate(lst):
+        xx, yy = z[x], z[y]
         if xhi - xlo >= n:  # split when big enough
           if len(lst) - xhi >= n:  # split when enough remains after
-            if z[x] != lst[xhi - 1][x]:  # split when values differ
+            if xx != lst[xhi - 1][x]:  # split when values differ
               bins += [Bin(xhi, x)]
               xlo = xhi
         now = bins[-1]
         now.xhi = xhi + 1
         all.xhi = xhi + 1
-        klass = 1 if z[y] == goal else 0
-        now.ys[klass] = now.ys.get(klass, 0) + 1
-        all.ys[klass] = all.ys.get(klass, 0) + 1
+        now.inc(yy, goal)
+        all.inc(yy, goal)
       return [bin.score(all) for bin in bins]
 
     def merge(bins):
@@ -402,6 +406,7 @@ def test_rows():
 
 
 def test_tab2():
+  print(1)
   rows = Rows(diabetes)
   rows.bins('tested_positive')
   for r in rows.all:
@@ -1611,5 +1616,5 @@ $preg, $plas, $pres, $skin, $insu, $mass, $pedi, $age, "class
 if __name__ == '__main__':
   my = opt(docopt(__doc__), s=int, k=int)
   seed(my.s)
-  print(my)
-  test_rows()
+  print(my.r)
+  test_tab2()
