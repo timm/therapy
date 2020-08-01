@@ -46,6 +46,7 @@ Copyright:
   
 """
 
+from collections import defaultdict
 import re
 import sys
 import math
@@ -181,7 +182,7 @@ class Rows(o):
 
   def bins(i, goal=None, cohen=.2):
     """
-    Divide numerics into  ranges that best select for `goal`.  If
+    Divide ranges into  ranges that best select for `goal`.  If
     `goal=None` then just divide into sqrt(N) bins, that differ
     by more than a small amount (at least `.2*sd`).
     """
@@ -195,13 +196,14 @@ class Rows(o):
           break
       return round((pos + 1) / len(lst), 2)
     # ----------------
-    for x in i.cols.nums:
-      i._bins[x] = bins = Bins.nums(
-          i.all, x=x, goal=goal, cohen=cohen, y=i.cols.klass)
-    for row in i.all:
-      row.bins[x] = apply2Numerics(i._bins[x], row[x])
-    for x in i.cols.syms:
-      i._bins[x] = Bins.syms(i.all, x=x, goal=goal, y=i.cols.klass)
+    if len(i._bins) == 0:
+      for x in i.cols.nums:
+        i._bins[x] = bins = Bins.nums(
+            i.all, x=x, goal=goal, cohen=cohen, y=i.cols.klass)
+        for row in i.all:
+          row.bins[x] = apply2Numerics(i._bins[x], row[x])
+      for x in i.cols.syms:
+        i._bins[x] = Bins.syms(i.all, x=x, goal=goal, y=i.cols.klass)
     return i._bins
 
 
@@ -227,7 +229,7 @@ class Bin(o):
     "Score a bin by prob*support that it selects for the goal."
     yes = i.ys.get(1, 0) / (all.ys.get(1, 0) + e)
     no = i.ys.get(0, 0) / (all.ys.get(0, 0) + e)
-    tmp = yes**2 / (yes + no + e)
+    tmp = round(yes**2 / (yes + no + e), 3)
     i.val = tmp if tmp > 0.01 else 0
     return i
 
@@ -243,7 +245,7 @@ class Bin(o):
 
   def inc(i, y, want):
     k = y == want
-    i.ys[k] = i.ys.get(k, 0)
+    i.ys[k] = i.ys.get(k, 0) + 1
 
 
 class Bins:
@@ -260,10 +262,10 @@ class Bins:
         now = bins[xx]
         now.inc(yy, goal)
         all.inc(yy, goal)
-    return [Bins.score(one, all) for one in bins.values()]
+    return [bin.score(all) for bin in bins.values()]
 
-  def nums(lst, x=0, y=-1, goal=None, cohen=.2,
-           enough=.2, trivial=.05):
+  def nums(lst, x=0, y=-1, goal=None, cohen=.3,
+           enough=.5, trivial=.05):
     """
     Return bins for columns of numbers. Combine two bins if
     they are separated by too small amount or if
@@ -323,6 +325,30 @@ def smo(tab, n1=10):
   lst = shuffle(tab.rows)
   for i, j in pairs(lst[:n1]):
     i.dom += i.better(j)
+
+
+def Nested(): return defaultdict(Nested)
+
+
+n = Nested()
+
+
+n[1][3][3] = 2
+print(n[1][3].get(3, 10))
+
+
+def train(rows, d=None):
+  d = d or {}
+  cols = rows[0]._rows.cols
+  klass = cols.klass
+  for row in rows:
+    y = row.bins[klass]
+    if y not in d:
+      d[y] = {x: {} for x in cols.x}
+    for x, d1 in d[y].items():
+      v = row.bins[x]
+      d1[v] = d1.get(v, 0) + 1
+  return d
 
 
 def csv(src=None, f=sys.stdin):
@@ -406,11 +432,21 @@ def test_rows():
 
 
 def test_tab2():
-  print(1)
-  rows = Rows(diabetes)
-  rows.bins('tested_positive')
-  for r in rows.all:
-    print(r.x, rows.all.col.all[r.x], r.xlo, r.xhi, r.val)
+  r = Rows(auto93)
+  for x, bs in r.bins(40.0).items():
+    print("")
+    for n, b in enumerate(bs):
+      print(x, n, r.cols.all[x], b.x, b.xlo, b.xhi, b.val)
+
+
+def test_train():
+  r = Rows(auto93)
+  bins = r.bins()
+  for x, d in train(r.all, {}).items():
+    print("")
+    for k, d1 in d.items():
+      print(x, k, d1)
+#
 
 
 def rest_dom(n=20):
