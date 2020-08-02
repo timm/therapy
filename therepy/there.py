@@ -345,7 +345,18 @@ class Seen(o):
   def __init__(i, rows=[], k=None, cols=None):
     i.seen, i.h, i.n = {}, {}, 0
     i.y = -1 if k is None else k
-    [i.train(row) for row in rows]
+    n, y = {}, {}
+    def p(z): return f"{z:3.0f}"
+    m = 0
+    for row in rows:
+      m += 1
+      if m > 10:
+        k = row.bins[i.y]
+        n[k] = n.get(k, 0) + 1
+        y[k] = y.get(k, 0) + (row.bins[i.y] == i.likes(row)[0])
+        if m % 20 == 0:
+          print(', '.join([p(100*y[k]/n[k]) for k in y]))
+      i.train(row)
 
   def known(i, row):
     y = row.bins[i.y]
@@ -480,10 +491,12 @@ def test_tab2():
 def test_train():
   r = Rows(auto93)
   bins = r.bins()
-  s = Seen(r.all)
-  for row in r.all:
-    x, _ = s.likes(row)
-    print(row.bins[-1], x, row.bins[-1] == x)
+  s = Seen(shuffle(r.all))
+  # for row in r.all:
+  # x, l = s.likes(row)
+  #x = round(2.717**sorted(l.values())[-1], 7)
+  # print(f"{x:.6f}")
+  #print(row.bins[-1], x, row.bins[-1] == x)
 
 
 def rest_dom(n=20):
