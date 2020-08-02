@@ -357,6 +357,7 @@ class Seen(o):
         if m % 20 == 0:
           print(', '.join([p(100*y[k]/n[k]) for k in y]))
       i.train(row)
+    print(', '.join([p(100*k) for k in y]))
 
   def known(i, row):
     y = row.bins[i.y]
