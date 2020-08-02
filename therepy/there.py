@@ -1,49 +1,49 @@
 #!/usr/bin/env python3
-"""  
+"""
 Name:
-    there.py : learn how to change, for the better  
-  
+    there.py : learn how to change, for the better
+
 Version:
-    0.2  
-  
+    0.2
+
 Usage:
-    there [options]  
-  
+    there [options]
+
 Options:
-  
-    -h        Help.  
-    -v        Verbose.  
-    -r=f      Function to run.   
-    -s=n      Set random number seed [default: 1].  
-    -k=n      Speed in knots [default: 10].  
-  
+
+    -h        Help.
+    -v        Verbose.
+    -r=f      Function to run.
+    -s=n      Set random number seed [default: 1].
+    -k=n      Speed in knots [default: 10].
+
 Examples:
-  
-    - Installation: `sh INSTALL.md`  
-    - Unit tests. 'pytest.py  there.py'  
-    - One Unit test. `pytest.py -s -k tion1 there.py`   
-    - Continual tests: `rerun 'pytest there.py'`  
-    - Documentation: `sh DOC.md`  
-    - Add some shell tricks: `sh SH.md`  
-  
+
+    - Installation: `sh INSTALL.md`
+    - Unit tests. 'pytest.py  there.py'
+    - One Unit test. `pytest.py -s -k tion1 there.py`
+    - Continual tests: `rerun 'pytest there.py'`
+    - Documentation: `sh DOC.md`
+    - Add some shell tricks: `sh SH.md`
+
 Notes:
-    Simplest to tricky-est, this code divides  
-    into `OTHER`,`BINS`,`TABLE`.  
-  
-    - `OTHER` contains misc  utilities.  
-    - `ROW` manages sets of rows.  
-    - `BINS` does discretization.  
-  
+    Simplest to tricky-est, this code divides
+    into `OTHER`,`BINS`,`TABLE`.
+
+    - `OTHER` contains misc  utilities.
+    - `ROW` manages sets of rows.
+    - `BINS` does discretization.
+
 Author:
-   Tim Menzies  
-   timm@ieee.org  
-   http://menzies.us  
-  
+   Tim Menzies
+   timm@ieee.org
+   http://menzies.us
+
 Copyright:
-   (c) 2020 Tim Menzies,   
-   MIT license,    
-   https://opensource.org/licenses/MIT  
-  
+   (c) 2020 Tim Menzies,
+   MIT license,
+   https://opensource.org/licenses/MIT
+
 """
 
 from collections import defaultdict
@@ -52,6 +52,7 @@ import sys
 import math
 import copy
 import bisect
+import pprint
 from docopt import docopt
 from random import random, seed, choice
 from random import shuffle as rshuffle
@@ -68,6 +69,7 @@ def opt(d, **types):
   return o(**d)
 
 
+def ako(x, c): return isinstace(x, c)
 def same(x): return x
 def first(a): return a[0]
 def last(a): return a[-1]
@@ -82,13 +84,25 @@ class o:
 
   def __repr__(i):
     "Pretty print. Hide private keys (those starting in `_`)"
-    d = i.__dict__
-    n = i.__class__.__name__
-    return n + "{" + ', '.join(
-        [(':%s %s' % (k, d[k])) for k in sorted(d.keys())
-            if str(k)[0] != "_"]) + "}"
-
-# ---------------------------------
+    def dicts(x, seen=None):
+      if isinstance(x, (tuple, list)):
+        return [dicts(v, seen) for v in i]
+      if isinstance(x, dict):
+        return {k: dicts(x[k], seen)
+                for k in x if str(k)[0] != "_"}
+      if isinstance(x, o):
+        seen = seen or {}
+        j = id(x) % 128021  # ids are LONG; show them shorter.
+        if x in seen:
+          return f"#:{j}"
+        seen[x] = x
+        d = dicts(x.__dict__, seen)
+        d["#"] = j
+        return d
+      return x
+    # -----------------------
+    return re.sub(r"'", ' ',
+                  pprint.pformat(dicts(i.__dict__), compact=True))
 
 
 class Row(o):
@@ -327,28 +341,52 @@ def smo(tab, n1=10):
     i.dom += i.better(j)
 
 
-def Nested(): return defaultdict(Nested)
+class Seen(o):
+  def __init__(i, rows=[], k=None, cols=None):
+    i.seen, i.h, i.n = {}, {}, 0
+    i.y = -1 if k is None else k
+    [i.train(row) for row in rows]
 
+  def known(i, row):
+    y = row.bins[i.y]
+    if y not in i.seen:
+      i.h[y] = 0
+      i.seen[y] = {x: {} for x, _ in enumerate(row)}
+    i.h[y] += 1
+    return i.seen[y]
 
-n = Nested()
+  def train(i, row):
+    i.n += 1
+    seen = i.known(row)
+    for col in seen:
+      v = row.bins[col]
+      seen[col][v] = seen[col].get(v, 0) + 1
 
+  def likes(i, row, cols=None, m=2, k=1):
+    out, best, all = None, -1*10**32, {}
+    for klass in i.seen:
+      seen = i.seen[klass]
+      prior = (i.h[klass] + k) / (i.n + k*len(i.seen))
+      tmp = math.log(prior)
+      for col, val in i.fields(row, cols=cols or row._rows.cols.x):
+        if val != "?":
+          inc = (seen[col].get(val, 0) + m*prior) / (i.h[klass] + m)
+          tmp += math.log(inc)
+      if tmp > best:
+        best, out = tmp, klass
+      all[klass] = tmp
+    return out, all
 
-n[1][3][3] = 2
-print(n[1][3].get(3, 10))
-
-
-def train(rows, d=None):
-  d = d or {}
-  cols = rows[0]._rows.cols
-  klass = cols.klass
-  for row in rows:
-    y = row.bins[klass]
-    if y not in d:
-      d[y] = {x: {} for x in cols.x}
-    for x, d1 in d[y].items():
-      v = row.bins[x]
-      d1[v] = d1.get(v, 0) + 1
-  return d
+  def fields(i, x, cols=None):
+    if cols:
+      for col in cols:
+        yield col, x.bins[col]
+    elif isinstance(x, dict):
+      for col, z in x.items():
+        yield col, z
+    else:
+      for col, z in enumerate(x):
+        yield col, z
 
 
 def csv(src=None, f=sys.stdin):
@@ -442,11 +480,10 @@ def test_tab2():
 def test_train():
   r = Rows(auto93)
   bins = r.bins()
-  for x, d in train(r.all, {}).items():
-    print("")
-    for k, d1 in d.items():
-      print(x, k, d1)
-#
+  s = Seen(r.all)
+  for row in r.all:
+    x, _ = s.likes(row)
+    print(row.bins[-1], x, row.bins[-1] == x)
 
 
 def rest_dom(n=20):
@@ -1648,9 +1685,3 @@ $preg, $plas, $pres, $skin, $insu, $mass, $pedi, $age, "class
 1, 126, 60, 0, 0, 30.1, 0.349, 47, tested_positive
 1, 93, 70, 31, 0, 30.4, 0.315, 23, tested_negative
 """
-
-if __name__ == '__main__':
-  my = opt(docopt(__doc__), s=int, k=int)
-  seed(my.s)
-  print(my.r)
-  test_tab2()
