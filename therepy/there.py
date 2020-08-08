@@ -221,7 +221,7 @@ class Rows(o):
         row.bins[x] = apply2Numerics(bins[x], row[x])
     for x in i.cols.syms:
       bins[x] = Bins.syms(i.all, x=x, goal=goal, y=i.cols.klass)
-    return bins
+    return bins.values()
 
 
 class Bin(o):
