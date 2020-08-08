@@ -4,23 +4,14 @@ usage="sh ELL.md"
 
 Ell=$(cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
 
-echo  "$(tput bold) $(tput setaf 4) "; cat <<'EOF'
-      .---.       .---.
-      \_,(o,      \_,(o,
-        |\_(       .)\_(        Welcome
-        //_  __,   //_  __       to
-       /',\\/ //  ('.\\ )'\\      (sh)ELL
-       \+/ \|      \+/\/
-       .+=         .+=
-       _+_         _+_
-      'o:o\       'o:o\
-      '--'(.      '--'(,
-       )   |       \    \
-      '>   >        >    >
-      /   /        (      \
-     /   /          |     |
-    o:..o;...      o:...  o:...
+tput bold; tput setaf 4
+cat <<'EOF'
+   .-.
+  (o o)  boo !!
+  | O \    there's no escape 
+   \   \     from (sh)ELL, v0.4
+    `~~~'
 EOF
-echo   "$(tput sgr0)"
+tput sgr0
 
 Ell="$Ell" bash --init-file $Ell/.var/bashrc -i
