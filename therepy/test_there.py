@@ -1,4 +1,4 @@
-from there import *
+from .there import *
 
 
 def test_struct():
