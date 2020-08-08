@@ -1,49 +1,49 @@
 #!/usr/bin/env python3
-"""
+"""  
 Name:
-    there.py : learn how to change, for the better
-
+    there.py : learn how to change, for the better  
+  
 Version:
-    0.2
-
+    0.2  
+  
 Usage:
-    there [options]
-
+    there [options]  
+  
 Options:
-
-    -h        Help.
-    -v        Verbose.
-    -r=f      Function to run.
-    -s=n      Set random number seed [default: 1].
-    -k=n      Speed in knots [default: 10].
-
+  
+    -h        Help.  
+    -v        Verbose.  
+    -r=f      Function to run.  
+    -s=n      Set random number seed [default: 1].  
+    -k=n      Speed in knots [default: 10].  
+  
 Examples:
-
-    - Installation: `sh INSTALL.md`
-    - Unit tests. 'pytest.py  there.py'
-    - One Unit test. `pytest.py -s -k tion1 there.py`
-    - Continual tests: `rerun 'pytest there.py'`
-    - Documentation: `sh DOC.md`
-    - Add some shell tricks: `sh SH.md`
-
+  
+    - Installation: `sh INSTALL.md`  
+    - Unit tests. 'pytest.py  there.py'  
+    - One Unit test. `pytest.py -s -k tion1 there.py`  
+    - Continual tests: `rerun 'pytest there.py'`  
+    - Documentation: `sh DOC.md`  
+    - Add some shell tricks: `sh SH.md`  
+  
 Notes:
-    Simplest to tricky-est, this code divides
-    into `OTHER`,`BINS`,`TABLE`.
-
-    - `OTHER` contains misc  utilities.
-    - `ROW` manages sets of rows.
-    - `BINS` does discretization.
-
+    Simplest to tricky-est, this code divides  
+    into `OTHER`,`BINS`,`TABLE`.  
+  
+    - `OTHER` contains misc  utilities.  
+    - `ROW` manages sets of rows.  
+    - `BINS` does discretization.  
+  
 Author:
-   Tim Menzies
-   timm@ieee.org
-   http://menzies.us
-
+   Tim Menzies  
+   timm@ieee.org  
+   http://menzies.us  
+  
 Copyright:
-   (c) 2020 Tim Menzies,
-   MIT license,
-   https://opensource.org/licenses/MIT
-
+   (c) 2020 Tim Menzies,  
+   MIT license,  
+   https://opensource.org/licenses/MIT  
+  
 """
 
 from collections import defaultdict
@@ -344,8 +344,10 @@ class Abcd:
     i.c = {}
     i.d = {}
     i.all = {}
+    i.n = 0
 
   def __call__(i, actual, predict):
+    i.n += 1
     i.knowns(actual)
     i.knowns(predict)
     if actual == predict:
@@ -421,18 +423,6 @@ class Seen(o):
     i.seen, i.h, i.n = {}, {}, 0
     i.y = -1 if k is None else k
     n, y = {}, {}
-    def p(z): return f"{z:3.0f}"
-    m = 0
-    for row in rows:
-      m += 1
-      if m > 10:
-        k = row.bins[i.y]
-        n[k] = n.get(k, 0) + 1
-        y[k] = y.get(k, 0) + (row.bins[i.y] == i.likes(row)[0])
-        if m % 20 == 0:
-          print(', '.join([p(100*y[k]/n[k]) for k in y]))
-      i.train(row)
-    print(', '.join([p(100*k) for k in y]))
 
   def known(i, row):
     y = row.bins[i.y]
