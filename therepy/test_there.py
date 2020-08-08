@@ -25,23 +25,24 @@ def test_rows():
 
 def test_tab2():
   r = Rows(auto93)
-  for x, bs in r.bins(40.0).items():
+  bins = r.bins(40.0)
+  for x, bs in bins.items():
     print("")
     for n, b in enumerate(bs):
       print(x, n, r.cols.all[x],
             b.x, b.xlo, b.xhi, b.val)
 
 
-def worker1(csv):
+def worker1(csv, goal=None, m=20):
   print("\n------", 10)
   random.seed(1)
   r = Rows(csv)
-  bins = r.bins()
+  bins = r.bins(goal=goal)
+  return 1
   s = Seen()
   a = Abcd()
   for n, one in enumerate(shuffle(r.all)):
-    if n > 5:
-      print(one)
+    if n > m:
       a(one[-1], s.likes(one)[0])
     s.train(one)
   a.header()
@@ -49,7 +50,7 @@ def worker1(csv):
 
 
 def test_train1(): worker1(soybean)
-def test_train2(): worker1(weather)
+def test_train2(): worker1(weather, m=4, goal='yes')
 
 
 def test_abcd():

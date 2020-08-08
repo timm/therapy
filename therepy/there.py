@@ -162,7 +162,7 @@ class Rows(o):
     Create from `src`, which could be a list,
     a `.csv` file name, or a string.
     """
-    i.all, i._bins = [], {}
+    i.all = []
     i.cols = o(all={}, w={}, klass=None, x={}, y={}, syms={}, nums={})
     [i.add(row) for row in csv(src)]
 
@@ -211,16 +211,17 @@ class Rows(o):
           break
       return round((pos + 1) / len(lst), 2)
     # ----------------
-    if len(i._bins) == 0:
-      print(1000)
-      for x in i.cols.nums:
-        i._bins[x] = bins = Bins.nums(
-            i.all, x=x, goal=goal, cohen=cohen, y=i.cols.klass)
-        for row in i.all:
-          row.bins[x] = apply2Numerics(i._bins[x], row[x])
-      for x in i.cols.syms:
-        i._bins[x] = Bins.syms(i.all, x=x, goal=goal, y=i.cols.klass)
-    return i._bins
+    bins = {}
+    print(i.cols.nums)
+    for x in i.cols.nums:
+      bins[x] = bins = Bins.nums(
+          i.all, x=x, goal=goal, cohen=cohen, y=i.cols.klass)
+      print(bins)
+      for row in i.all:
+        row.bins[x] = apply2Numerics(bins[x], row[x])
+    for x in i.cols.syms:
+      bins[x] = Bins.syms(i.all, x=x, goal=goal, y=i.cols.klass)
+    return bins
 
 
 class Bin(o):
