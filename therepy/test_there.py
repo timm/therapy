@@ -37,7 +37,6 @@ def test_train():
   a = Abcd()
   for n, one in enumerate(r.all):
     if n > 20:
-      print(one[-1], s.likes(one)[0])
       a(one[-1], s.likes(one)[0])
     s.train(one)
   a.header()

@@ -344,10 +344,8 @@ class Abcd:
     i.c = {}
     i.d = {}
     i.all = {}
-    i.n = 0
 
   def __call__(i, actual, predict):
-    i.n += 1
     i.knowns(actual)
     i.knowns(predict)
     if actual == predict:
@@ -383,7 +381,9 @@ class Abcd:
     def p(y): return int(100*y + 0.5)
     def n(y): return int(y)
     pd = pf = pn = prec = g = f = acc = 0
-    for x in i.known:
+    order = sorted([(-1*(i.b[k] + i.d[k]), k)
+                    for k in i.known])
+    for _, x in order:
       a = i.a[x]
       b = i.b[x]
       c = i.c[x]

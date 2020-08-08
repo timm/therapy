@@ -469,7 +469,9 @@ class Abcd:
     def p(y): return int(100*y + 0.5)
     def n(y): return int(y)
     pd = pf = pn = prec = g = f = acc = 0
-    for x in i.known:
+    order = sorted([(-1*(i.b[k] + i.d[k]), k)
+                    for k in i.known])
+    for _, x in order:
       a = i.a[x]
       b = i.b[x]
       c = i.c[x]
@@ -509,18 +511,6 @@ class Seen(o):
     i.seen, i.h, i.n = {}, {}, 0
     i.y = -1 if k is None else k
     n, y = {}, {}
-    def p(z): return f&#34;{z:3.0f}&#34;
-    m = 0
-    for row in rows:
-      m += 1
-      if m &gt; 10:
-        k = row.bins[i.y]
-        n[k] = n.get(k, 0) + 1
-        y[k] = y.get(k, 0) + (row.bins[i.y] == i.likes(row)[0])
-        if m % 20 == 0:
-          print(&#39;, &#39;.join([p(100*y[k]/n[k]) for k in y]))
-      i.train(row)
-    print(&#39;, &#39;.join([p(100*k) for k in y]))
 
   def known(i, row):
     y = row.bins[i.y]
@@ -863,7 +853,9 @@ false alarm, recall,&hellip;</p></div>
     def p(y): return int(100*y + 0.5)
     def n(y): return int(y)
     pd = pf = pn = prec = g = f = acc = 0
-    for x in i.known:
+    order = sorted([(-1*(i.b[k] + i.d[k]), k)
+                    for k in i.known])
+    for _, x in order:
       a = i.a[x]
       b = i.b[x]
       c = i.c[x]
@@ -934,7 +926,9 @@ false alarm, recall,&hellip;</p></div>
   def p(y): return int(100*y + 0.5)
   def n(y): return int(y)
   pd = pf = pn = prec = g = f = acc = 0
-  for x in i.known:
+  order = sorted([(-1*(i.b[k] + i.d[k]), k)
+                  for k in i.known])
+  for _, x in order:
     a = i.a[x]
     b = i.b[x]
     c = i.c[x]
@@ -1575,18 +1569,6 @@ can <code>inc</code>rement and <code>__add__</code> their values.</p></div>
     i.seen, i.h, i.n = {}, {}, 0
     i.y = -1 if k is None else k
     n, y = {}, {}
-    def p(z): return f&#34;{z:3.0f}&#34;
-    m = 0
-    for row in rows:
-      m += 1
-      if m &gt; 10:
-        k = row.bins[i.y]
-        n[k] = n.get(k, 0) + 1
-        y[k] = y.get(k, 0) + (row.bins[i.y] == i.likes(row)[0])
-        if m % 20 == 0:
-          print(&#39;, &#39;.join([p(100*y[k]/n[k]) for k in y]))
-      i.train(row)
-    print(&#39;, &#39;.join([p(100*k) for k in y]))
 
   def known(i, row):
     y = row.bins[i.y]
