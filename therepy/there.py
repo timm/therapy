@@ -62,6 +62,7 @@ from random import shuffle as rshuffle
 # Misc, lib functions
 def opt(d, **types):
   """Coerce dictionaries into simple keys
+    random.seed(1)
   whose values are of known `types`."""
   d = {re.sub(r"^[-]+", "", k): v for k, v in d.items()}
   for k, f in types.items():
@@ -211,6 +212,7 @@ class Rows(o):
       return round((pos + 1) / len(lst), 2)
     # ----------------
     if len(i._bins) == 0:
+      print(1000)
       for x in i.cols.nums:
         i._bins[x] = bins = Bins.nums(
             i.all, x=x, goal=goal, cohen=cohen, y=i.cols.klass)

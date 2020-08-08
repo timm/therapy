@@ -1,4 +1,5 @@
 from .there import *
+import random
 
 
 def test_struct():
@@ -27,20 +28,28 @@ def test_tab2():
   for x, bs in r.bins(40.0).items():
     print("")
     for n, b in enumerate(bs):
-      print(x, n, r.cols.all[x], b.x, b.xlo, b.xhi, b.val)
+      print(x, n, r.cols.all[x],
+            b.x, b.xlo, b.xhi, b.val)
 
 
-def test_train():
-  r = Rows(soybean)
+def worker1(csv):
+  print("\n------", 10)
+  random.seed(1)
+  r = Rows(csv)
   bins = r.bins()
   s = Seen()
   a = Abcd()
-  for n, one in enumerate(r.all):
-    if n > 20:
+  for n, one in enumerate(shuffle(r.all)):
+    if n > 5:
+      print(one)
       a(one[-1], s.likes(one)[0])
     s.train(one)
   a.header()
   a.report()
+
+
+def test_train1(): worker1(soybean)
+def test_train2(): worker1(weather)
 
 
 def test_abcd():
@@ -80,6 +89,24 @@ def test_dom(n=20):
   for row in t.all[0::n]:
     print(row.status(), round(row.dom, 2))
 
+
+# -------------------------------------------
+weather = """
+outlook,$temperature,$humidity,windy,play!
+sunny,85,85,FALSE,no
+sunny,80,90,TRUE,no
+overcast,83,86,FALSE,yes
+rainy,70,96,FALSE,yes
+rainy,68,80,FALSE,yes
+rainy,65,70,TRUE,no
+overcast,64,65,TRUE,yes
+sunny,72,95,FALSE,no
+sunny,69,70,FALSE,yes
+rainy,75,80,FALSE,yes
+sunny,75,70,TRUE,yes
+overcast,72,90,TRUE,yes
+overcast,81,75,FALSE,yes
+"""
 
 # -------------------------------------------
 auto93 = """
