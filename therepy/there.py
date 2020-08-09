@@ -1,49 +1,49 @@
 #!/usr/bin/env python3
-"""  
+"""
 Name:
-    there.py : learn how to change, for the better  
-  
+    there.py : learn how to change, for the better
+
 Version:
-    0.2  
-  
+    0.2
+
 Usage:
-    there [options]  
-  
+    there [options]
+
 Options:
-  
-    -h        Help.  
-    -v        Verbose.  
-    -r=f      Function to run.  
-    -s=n      Set random number seed [default: 1].  
-    -k=n      Speed in knots [default: 10].  
-  
+
+    -h        Help.
+    -v        Verbose.
+    -r=f      Function to run.
+    -s=n      Set random number seed [default: 1].
+    -k=n      Speed in knots [default: 10].
+
 Examples:
-  
-    - Installation: `sh INSTALL.md`  
-    - Unit tests. 'pytest.py  there.py'  
-    - One Unit test. `pytest.py -s -k tion1 there.py`  
-    - Continual tests: `rerun 'pytest there.py'`  
-    - Documentation: `sh DOC.md`  
-    - Add some shell tricks: `sh SH.md`  
-  
+
+    - Installation: `sh INSTALL.md`
+    - Unit tests. 'pytest.py  there.py'
+    - One Unit test. `pytest.py -s -k tion1 there.py`
+    - Continual tests: `rerun 'pytest there.py'`
+    - Documentation: `sh DOC.md`
+    - Add some shell tricks: `sh SH.md`
+
 Notes:
-    Simplest to tricky-est, this code divides  
-    into `OTHER`,`BINS`,`TABLE`.  
-  
-    - `OTHER` contains misc  utilities.  
-    - `ROW` manages sets of rows.  
-    - `BINS` does discretization.  
-  
+    Simplest to tricky-est, this code divides
+    into `OTHER`,`BINS`,`TABLE`.
+
+    - `OTHER` contains misc  utilities.
+    - `ROW` manages sets of rows.
+    - `BINS` does discretization.
+
 Author:
-   Tim Menzies  
-   timm@ieee.org  
-   http://menzies.us  
-  
+   Tim Menzies
+   timm@ieee.org
+   http://menzies.us
+
 Copyright:
-   (c) 2020 Tim Menzies,  
-   MIT license,  
-   https://opensource.org/licenses/MIT  
-  
+   (c) 2020 Tim Menzies,
+   MIT license,
+   https://opensource.org/licenses/MIT
+
 """
 
 from collections import defaultdict
@@ -106,6 +106,84 @@ class o:
                   pprint.pformat(dicts(i.__dict__), compact=True))
 
 
+class Col(o):
+  "Summarize columns. Ignore '?' unknown values."
+  def __init__(i, pos=0, txt="", w=1, all=[]):
+    i.n, i.w, i.pos, i.txt = 0, w, pos, txt
+    i.also()
+    [i + x for x in all]
+
+  def __add__(i, x):
+    if x == "?":
+      return x
+    i.n += 1
+    i.add(x)
+    return x
+
+  def norm(i, x):
+    if x == "?":
+      return x
+    return i.norm1(x)
+
+  def norm1(i, x): return x
+
+  def dist(i, x, y):
+    return 1 if x == "?" and y == "?" else i.dist1(x, y)
+
+
+class Num(Col):
+  "Summarize numeric columns"
+  def also(i, most=sys.maxsize):
+    i.mu, i.m2, i.sd, i.lo, i.hi = 0, 0, 0, most, -most
+
+  def add(i, x):
+    i.lo = min(x, i.lo)
+    i.hi = max(x, i.hi)
+    d = x - i.mu
+    i.mu += d/i.n
+    i.m2 += d*(x - i.mu)
+    if i.m2 < 0:
+      i.sd = 0
+    elif i.n <= 1:
+      i.sd = 0
+    else:
+      i.sd = (i.m2/(i.n-1))**0.5
+
+  def dist1(i, x, y):
+    if x == "?":
+      y = i.norm(y)
+      x = 0 if y > 0.5 else 1
+    elif y == "?":
+      x = i.norm(x)
+      y = 0 if x > 0.5 else 1
+    else:
+      x, y = i.norm(x), i.norm(y)
+    return abs(x-y)
+
+  def like(i, x, *_):
+    v = i.sd**2
+    nom = math.e**(-1*(x-i.mu)**2/(2*v))
+    denom = (2*math.pi*v)**.5
+    return nom/(denom + 10**-64)
+
+
+class Sym(Col):
+  "Summarize symbolic columns"
+  def also(i):
+    i.seen, i.most, i.mode = {}, 0, None
+
+  def add(i, x):
+    i.seen[x] = i.seen.get(x, 0) + 1
+    if i.seen[x] > i.most:
+      i.most, i.mode = i.seen[x], x
+
+  def dist1(i, x, y):
+    return 0 if x == y else 1
+
+  def like(i, x, prior=1, m=1):
+    return (i.seen.get(x, 0) + m*prior)/(i.n + m)
+
+
 class Row(o):
   """
   Holds one example from a set of `rows`
@@ -125,30 +203,24 @@ class Row(o):
   def better(i, j):
     c = i._rows.cols
     s1, s2, n = 0, 0, len(c.y) + 0.0001
-    for k in c.y:
-      x = i.bins[k]
-      y = j.bins[k]
-      s1 -= math.e**(c.w[k] * (x - y) / n)
-      s2 -= math.e**(c.w[k] * (y - x) / n)
+    for col in c.y:
+      x = i.bins[col.pos]
+      y = j.bins[col.pos]
+      s1 -= math.e**(col.w * (x - y) / n)
+      s2 -= math.e**(col.w * (y - x) / n)
     return s1 / n < s2 / n
 
   def dist(i, j, what="x"):
     d, n = 0, 0
-    for c in i._rows.cols[what]:
-      a, b = i.cells[c], j.cells[c]
+    for col in i._rows.cols[what]:
+      a, b = i[col.pos], j[col.pos]
       n += 1
-      if a == "?" and b == "?":
-        d = 1
-      else:
-        if a == "?":
-          a = 0 if b > 0.5 else 1
-        if b == "?":
-          b = 0 if a > 0.5 else 1
-      d += abs(a - b) ^ 2
+      inc = col.dist(a, b)
+      d += inc ** 2
     return (d / (n + 0.001))**0.5
 
   def status(i):
-    return [i[y] for y in i._rows.cols.y]
+    return [i[col.pos] for col in i._rows.cols.y]
 
 
 class Rows(o):
@@ -157,14 +229,21 @@ class Rows(o):
   type descriptions for each column (and `cols` is built from the
   names in the first row).
   """
-  def __init__(i, src=[]):
+  def __init__(i, src=None):
     """
     Create from `src`, which could be a list,
     a `.csv` file name, or a string.
     """
     i.all = []
-    i.cols = o(all={}, w={}, klass=None, x={}, y={}, syms={}, nums={})
-    [i.add(row) for row in csv(src)]
+    i.cols = o(all=[], klass=None, x=[], y=[], syms=[], nums=[])
+    if src:
+      [i.add(row) for row in csv(src)]
+
+  def clone(i, all=[]):
+    tmp = Rows()
+    tmp.header([col.txt for col in i.cols.all])
+    [tmp.row(one) for one in all]
+    return tmp
 
   def add(i, row):
     "The first `row` goes to the header. All the rest got to `rows`."
@@ -183,16 +262,18 @@ class Rows(o):
     c, ch = i.cols, Rows.ch
     c.klass = -1
     for pos, txt in enumerate(lst):
-      c.all[pos] = txt
-      (c.nums if txt[0] in ch.nums else c.syms)[pos] = txt
-      (c.y if txt[0] in ch.goal else c.x)[pos] = txt
-      c.w[pos] = -1 if ch.less in txt else 1
+      w = -1 if ch.less in txt else 1
+      col = (Num if txt[0] in ch.nums else Sym)(pos, txt, w)
+      (c.nums if txt[0] in ch.nums else c.syms).append(col)
+      (c.y if txt[0] in ch.goal else c.x).append(col)
       if ch.klass in txt:
-        c.klass = pos
+        c.klass = col
+      c.all += [col]
 
   def row(i, z):
     "add a new row"
     z = z.cells if isinstance(z, Row) else z
+    [col + val for col, val in zip(i.cols.all, z)]
     i.all += [Row(i, z)]
 
   def bins(i, goal=None, cohen=.2):
@@ -212,16 +293,19 @@ class Rows(o):
       return round((pos + 1) / len(lst), 2)
     # ----------------
     bins = {}
-    print(i.cols.nums)
-    for x in i.cols.nums:
-      bins[x] = bins = Bins.nums(
-          i.all, x=x, goal=goal, cohen=cohen, y=i.cols.klass)
-      print(bins)
+    for col in i.cols.nums:
+      x = col.pos
+      bins[x] = Bins.nums(i.all, x=x, goal=goal,
+                          cohen=cohen, y=i.cols.klass.pos)
       for row in i.all:
-        row.bins[x] = apply2Numerics(bins[x], row[x])
-    for x in i.cols.syms:
-      bins[x] = Bins.syms(i.all, x=x, goal=goal, y=i.cols.klass)
-    return bins.values()
+        old = row.bins[x]
+        new = apply2Numerics(bins[x], row[x])
+        row.bins[x] = new
+    for col in i.cols.syms:
+      x = col.pos
+      bins[x] = Bins.syms(i.all, x=x, goal=goal,
+                          y=i.cols.klass.pos)
+    return bins
 
 
 class Bin(o):
@@ -290,7 +374,7 @@ class Bins:
     """
     def split():
       xlo, bins, n = 0, [Bin(0, x)], len(lst)**enough
-      while n < 10 and n < len(lst) / 2:
+      while n < 4 and n < len(lst) / 2:
         n *= 1.2
       for xhi, z in enumerate(lst):
         xx, yy = z[x], z[y]
@@ -304,6 +388,7 @@ class Bins:
         all.xhi = xhi + 1
         now.inc(yy, goal)
         all.inc(yy, goal)
+      print("B", len(bins))
       return [bin.score(all) for bin in bins]
 
     def merge(bins):
@@ -374,13 +459,11 @@ class Abcd:
     if (i.known[x] == 1):
       i.a[x] = i.yes + i.no
 
-  def header(i):
+  def report(i):
     print("")
     print('{0:20s} {1:10s} {2:3s}  {3:3s} {4:3s} {5:3s} {6:3s} {7:3s} {8:3s} {9:3s} {10:3s} {11:3s} {12:3s} {13:10s}'.format(
         "db", "rx", "n", "a", "b", "c", "d", "acc", "pd", "pf", "prec", "f", "g", "class"))
     print('-'*85)
-
-  def report(i):
     def p(y): return int(100*y + 0.5)
     def n(y): return int(y)
     pd = pf = pn = prec = g = f = acc = 0
@@ -422,51 +505,41 @@ def smo(tab, n1=10):
 
 
 class Seen(o):
-  def __init__(i, rows=[], k=None, cols=None):
-    i.seen, i.h, i.n = {}, {}, 0
-    i.y = -1 if k is None else k
-    n, y = {}, {}
-
-  def known(i, row):
-    y = row.bins[i.y]
-    if y not in i.seen:
-      i.h[y] = 0
-      i.seen[y] = {x: {} for x, _ in enumerate(row)}
-    i.h[y] += 1
-    return i.seen[y]
+  def __init__(i,  rows, m=2, k=1, cols=None, y=None):
+    i.rows, i.m, i.k = rows, m, k
+    i.cols = cols or rows.cols.x
+    i.y = -1 if y is None else 1
+    i.all, i.h, i.n = {}, {}, 0
 
   def train(i, row):
+    y = row[i.y]
+    if y not in i.all:
+      i.h[y] = 0
+      i.all[y] = i.rows.clone()
+    i.h[y] += 1
     i.n += 1
-    seen = i.known(row)
-    for col in seen:
-      v = row.bins[col]
-      seen[col][v] = seen[col].get(v, 0) + 1
+    i.all[y].row(row)
 
-  def likes(i, row, cols=None, m=2, k=1):
-    out, best, all = None, -1*10**32, {}
-    for klass in i.seen:
-      seen = i.seen[klass]
-      prior = (i.h[klass] + k) / (i.n + k*len(i.seen))
-      tmp = math.log(prior)
-      for col, val in i.fields(row, cols=cols or row._rows.cols.x):
-        if val != "?":
-          inc = (seen[col].get(val, 0) + m*prior) / (i.h[klass] + m)
-          tmp += math.log(inc)
-      if tmp > best:
-        best, out = tmp, klass
-      all[klass] = tmp
-    return out, all
+  def guess(i, row):
+    best, most, all = None, -1*10**32, {}
+    for klass, seen in i.all.items():
+      best = best or klass
+      like = all[klass] = i.like(row, klass)
+      if like > most:
+        best, most = klass, like
+    print(row[-1], best)
+    return best, all
 
-  def fields(i, x, cols=None):
-    if cols:
-      for col in cols:
-        yield col, x.bins[col]
-    elif isinstance(x, dict):
-      for col, z in x.items():
-        yield col, z
-    else:
-      for col, z in enumerate(x):
-        yield col, z
+  def like(i, row, klass):
+    prior = (i.h[klass] + i.k) / (i.n + i.k*len(i.h))
+    out = math.log(prior)
+    for col in i.cols:
+      val = row[col.pos]
+      if val != "?":
+        inc = math.log(col.like(val, prior, i.m))
+        #print("cv", klass, col.pos, val, inc, out)
+        out += math.log(inc)
+    return out
 
 
 def csv(src=None, f=sys.stdin):
