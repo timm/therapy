@@ -2,6 +2,9 @@
 
 usage="sh INSTALL.md"  
 
+Ell=$(cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
+
+
 mac=1  
 unix=0 
 tricks=1  

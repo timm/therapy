@@ -161,7 +161,7 @@ class Num(Col):
     return abs(x-y)
 
   def like(i, x, *_):
-    v = i.sd**2
+    v = i.sd**2 + 10**-64
     nom = math.e**(-1*(x-i.mu)**2/(2*v))
     denom = (2*math.pi*v)**.5
     return nom/(denom + 10**-64)
@@ -181,6 +181,7 @@ class Sym(Col):
     return 0 if x == y else 1
 
   def like(i, x, prior=1, m=1):
+    print(o(val=i.seen.get(x, 0), x=x, prior=prior, m=m))
     return (i.seen.get(x, 0) + m*prior)/(i.n + m)
 
 
@@ -307,6 +308,17 @@ class Rows(o):
                           y=i.cols.klass.pos)
     return bins
 
+  def like(i, row, n, m, k, nh):
+    prior = (len(i.all) + k) / (n + k*nh)
+    out = math.log(prior)
+    for col in i.cols.x:
+      val = row[col.pos]
+      if val != "?":
+        inc = col.like(val, prior, m)
+        print("val", val, inc)
+        out += math.log(inc)
+    return out
+
 
 class Bin(o):
   """A `bin` is a core data structure in DUO. It
@@ -388,7 +400,6 @@ class Bins:
         all.xhi = xhi + 1
         now.inc(yy, goal)
         all.inc(yy, goal)
-      print("B", len(bins))
       return [bin.score(all) for bin in bins]
 
     def merge(bins):
@@ -505,41 +516,25 @@ def smo(tab, n1=10):
 
 
 class Seen(o):
-  def __init__(i,  rows, m=2, k=1, cols=None, y=None):
+  def __init__(i,  rows, m=2, k=1,  y=None):
     i.rows, i.m, i.k = rows, m, k
-    i.cols = cols or rows.cols.x
     i.y = -1 if y is None else 1
-    i.all, i.h, i.n = {}, {}, 0
+    i.ys, i.n = {}, 0
 
   def train(i, row):
     y = row[i.y]
-    if y not in i.all:
-      i.h[y] = 0
-      i.all[y] = i.rows.clone()
-    i.h[y] += 1
+    if y not in i.ys:
+      i.ys[y] = i.rows.clone()
     i.n += 1
-    i.all[y].row(row)
+    i.ys[y].row(row)
 
   def guess(i, row):
-    best, most, all = None, -1*10**32, {}
-    for klass, seen in i.all.items():
-      best = best or klass
-      like = all[klass] = i.like(row, klass)
-      if like > most:
-        best, most = klass, like
-    print(row[-1], best)
-    return best, all
-
-  def like(i, row, klass):
-    prior = (i.h[klass] + i.k) / (i.n + i.k*len(i.h))
-    out = math.log(prior)
-    for col in i.cols:
-      val = row[col.pos]
-      if val != "?":
-        inc = math.log(col.like(val, prior, i.m))
-        #print("cv", klass, col.pos, val, inc, out)
-        out += math.log(inc)
-    return out
+    all, ybest, most = {}, None, -10**64
+    for y in i.ys:
+      tmp = all[y] = i.ys[y].like(row, i.n, i.m, i.k, len(i.ys))
+      if tmp > most:
+        ybest, most = y, tmp
+    return ybest, all
 
 
 def csv(src=None, f=sys.stdin):

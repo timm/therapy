@@ -42,9 +42,8 @@ def test_tab2():
 
 
 def seed0(csv, m=20):
+  random.seed(1)
   r = Rows(csv)
-  print("x", [col.txt for col in r.cols.x])
-  print("y", [col.txt for col in r.cols.y])
   s = Seen(r)
   a = Abcd("seed0", "Seen")
   for one in shuffle(r.all):
@@ -73,7 +72,7 @@ def worker1(csv, goal=None, m=20):
   a.report()
 
 
-def rest_train1(): worker1(diabetes)
+def rest_train1(): worker1(diabetes, m=32)
 def rest_train2(): worker1(weather, m=4, goal='yes')
 
 
