@@ -55,6 +55,25 @@ def seed0(csv, m=20):
 
 def test_seen1(): seed0(diabetes)
 def test_seen2(): seed0(weather, m=2)
+def test_seen3(): seed0(soybean, m=20)
+
+
+def doubt(csv, m=20):
+  random.seed(1)
+  r = Rows(csv)
+  s = Seen(r)
+  a = Abcd("seed0", "Seen")
+  rows = shuffle(r.all)[:]
+  print("L1", len(rows))
+  while rows:
+    s.train(rows.pop())
+    if s.n >= m:
+      break
+  print("L2", len(rows))
+  s.uncertain(rows)
+
+
+def test_doubt(): doubt(diabetes)
 
 
 def worker1(csv, goal=None, m=20):

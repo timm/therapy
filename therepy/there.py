@@ -162,7 +162,7 @@ class Num(Col):
 
   def like(i, x, *_):
     v = i.sd**2 + 10**-64
-    nom = math.e**(-1*(x-i.mu)**2/(2*v))
+    nom = math.e**(-1*(x-i.mu)**2/(2*v)) + 10**-64
     denom = (2*math.pi*v)**.5
     return nom/(denom + 10**-64)
 
@@ -181,7 +181,6 @@ class Sym(Col):
     return 0 if x == y else 1
 
   def like(i, x, prior=1, m=1):
-    print(o(val=i.seen.get(x, 0), x=x, prior=prior, m=m))
     return (i.seen.get(x, 0) + m*prior)/(i.n + m)
 
 
@@ -236,7 +235,8 @@ class Rows(o):
     a `.csv` file name, or a string.
     """
     i.all = []
-    i.cols = o(all=[], klass=None, x=[], y=[], syms=[], nums=[])
+    i.cols = o(all=[], names={}, klass=None,
+               x=[], y=[], syms=[], nums=[])
     if src:
       [i.add(row) for row in csv(src)]
 
@@ -270,6 +270,7 @@ class Rows(o):
       if ch.klass in txt:
         c.klass = col
       c.all += [col]
+      i.cols.names[txt] = col
 
   def row(i, z):
     "add a new row"
@@ -503,37 +504,36 @@ class Abcd:
           i.db, i.rx, n(b + d), n(a), n(b), n(c), n(d), p(acc), p(pd), p(pf), p(prec), p(f), p(g), x))
 
 
-def smo(tab, n1=10):
-  def pairs(lst):
-    j = 0
-    while j < len(lst) - 1:
-      yield lst[j], lst[j + 1]
-      j += 2
-  lst = shuffle(tab.rows)
-  for i, j in pairs(lst[:n1]):
-    i.dom += i.better(j)
-
-
 class Seen(o):
-  def __init__(i,  rows, m=2, k=1,  y=None):
+  def __init__(i,  rows, m=2, k=1):
     i.rows, i.m, i.k = rows, m, k
-    i.y = -1 if y is None else 1
     i.ys, i.n = {}, 0
 
   def train(i, row):
-    y = row[i.y]
+    y = row[i.rows.cols.klass.pos]
     if y not in i.ys:
       i.ys[y] = i.rows.clone()
     i.n += 1
     i.ys[y].row(row)
 
   def guess(i, row):
-    all, ybest, most = {}, None, -10**64
+    all, ybest, most = [], None, -10**64
     for y in i.ys:
-      tmp = all[y] = i.ys[y].like(row, i.n, i.m, i.k, len(i.ys))
+      tmp = i.ys[y].like(row, i.n, i.m, i.k, len(i.ys))
+      all += [(tmp, row)]
       if tmp > most:
         ybest, most = y, tmp
     return ybest, all
+
+  def uncertain(i, rows):
+    all = []
+    for row in rows:
+      tmp = i.guess(row)[1]
+      two, one = tmp[-2][0], tmp[-1][0]
+      n1 = doubt = 1 - abs(one-two)
+      n2 = strength = one
+      all += [((n1**2 + n1**2)**0.5, n1, n2, row)]
+    return sorted(all, key=first)
 
 
 def csv(src=None, f=sys.stdin):
