@@ -67,10 +67,15 @@ def doubt(csv, m=20):
   print("L1", len(rows))
   while rows:
     s.train(rows.pop())
+    print(s.n)
     if s.n >= m:
       break
   print("L2", len(rows))
-  s.uncertain(rows)
+  for i in s.uncertain(rows)[:5]:
+    print("lo", i[:3])
+  print("")
+  for i in s.uncertain(rows)[-5:]:
+    print("hi", i[:3])
 
 
 def test_doubt(): doubt(diabetes)
