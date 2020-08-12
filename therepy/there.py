@@ -315,7 +315,6 @@ class Rows(o):
       val = row[col.pos]
       if val != "?":
         inc = col.like(val, prior, m)
-        print("val", val, inc)
         out += math.log(inc)
     return out
 
