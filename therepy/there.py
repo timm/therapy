@@ -520,13 +520,14 @@ class Seen(o):
     all, ybest, most = [], None, -10**64
     for y in i.ys:
       tmp = i.ys[y].like(row, i.n, i.m, i.k, len(i.ys))
-      all += [(math.e**tmp, row)]
+      all += [tmp, row]
       if tmp > most:
         ybest, most = y, tmp
     return ybest, all
 
   def uncertain(i, lst):
     all = []
+    n1s, n2s, n3s = Num(), Num(), Num()
     for row in lst:
       n1 = known = math.e**i.rows.like(row, i.n, i.m, i.k, len(i.ys))
       tmp = i.guess(row)[1]
@@ -537,7 +538,14 @@ class Seen(o):
       else:
         n2 = surity = 1
         n3 = strength = tmp[-1][0]
-      all += [(n1, n2, -n3, row)]
+      n1s + n1
+      n2s + n2
+      n3s + n3
+      all += [(0, n1, n2, n3, row)]
+    for one in all:
+      one[1] = n1s.norm(one[1])
+      one[2] = n1s.norm(one[2])
+      one[3] = n1s.norm(one[3])
     return sorted(all, key=first)
 
 
