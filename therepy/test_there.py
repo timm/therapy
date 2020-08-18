@@ -71,10 +71,11 @@ def doubt(csv, m=20):
     if s.n >= m:
       break
   print("L2", len(rows))
-  for i in s.uncertain(rows)[:5]:
+  return s.uncertain(rows)
+  for i in s.uncertain(rows):
     print("lo", i[:3])
   print("")
-  for i in s.uncertain(rows)[-5:]:
+  for i in s.uncertain(rows):
     print("hi", i[:3])
 
 

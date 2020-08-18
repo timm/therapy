@@ -520,7 +520,7 @@ class Seen(o):
     all, ybest, most = [], None, -10**64
     for y in i.ys:
       tmp = i.ys[y].like(row, i.n, i.m, i.k, len(i.ys))
-      all += [tmp, row]
+      all += [[tmp, row]]
       if tmp > most:
         ybest, most = y, tmp
     return ybest, all
@@ -529,8 +529,12 @@ class Seen(o):
     all = []
     n1s, n2s, n3s = Num(), Num(), Num()
     for row in lst:
+      print("keys", i.ys.keys())
       n1 = known = math.e**i.rows.like(row, i.n, i.m, i.k, len(i.ys))
+      for a in i.guess(row)[1]:
+        print("a", round(a[0], 3), a[1].cells)
       tmp = i.guess(row)[1]
+      return 1
       if len(tmp) > 1:
         two, one = tmp[-2][0], tmp[-1][0]
         n2 = surity = abs(one-two)
