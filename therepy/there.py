@@ -166,6 +166,11 @@ class Num(Col):
     denom = (2*math.pi*v)**.5
     return nom/(denom + 10**-64)
 
+  def norm(i, x):
+    if x == "?":
+      return x
+    return (x - i.lo)/(i.hi - i.lo + 10**-64)
+
 
 class Sym(Col):
   "Summarize symbolic columns"
@@ -520,37 +525,63 @@ class Seen(o):
     all, ybest, most = [], None, -10**64
     for y in i.ys:
       tmp = i.ys[y].like(row, i.n, i.m, i.k, len(i.ys))
-      all += [[tmp, row]]
+      all += [[tmp, y, row]]
       if tmp > most:
         ybest, most = y, tmp
     return ybest, all
 
   def uncertain(i, lst):
     all = []
-    n1s, n2s, n3s = Num(), Num(), Num()
+    frequents, strengths, convictions = Num(), Num(), Num()
     for row in lst:
-      print("keys", i.ys.keys())
-      n1 = known = math.e**i.rows.like(row, i.n, i.m, i.k, len(i.ys))
-      for a in i.guess(row)[1]:
-        print("a", round(a[0], 3), a[1].cells)
-      tmp = i.guess(row)[1]
-      return 1
-      if len(tmp) > 1:
-        two, one = tmp[-2][0], tmp[-1][0]
-        n2 = surity = abs(one-two)
-        n3 = strength = one
-      else:
-        n2 = surity = 1
-        n3 = strength = tmp[-1][0]
-      n1s + n1
-      n2s + n2
-      n3s + n3
-      all += [(0, n1, n2, n3, row)]
-    for one in all:
-      one[1] = n1s.norm(one[1])
-      one[2] = n1s.norm(one[2])
-      one[3] = n1s.norm(one[3])
-    return sorted(all, key=first)
+      # want to minimize frequent
+      n1 = frequent = i.rows.like(row, i.n, i.m, i.k, len(i.ys))
+      guesses = sorted(i.guess(row)[1], key=lambda z: -z[0])
+      # want to maximize strength
+      strength0 = guesses[0][0]
+      # want to minimize conviction
+      conviction = 0
+      if len(guesses) > 1:
+        conviction = strength0 - guesses[1][0]
+      # print(f"{frequent:.4} {strength0:4f} {conviction:.4f}")
+      frequents + frequent
+      strengths + strength0
+      convictions + conviction
+      all += [[frequent, strength0, conviction, row]]
+
+    scores = []
+    for f, s, c, row in all:
+      f = frequents.norm(f)
+      s = strengths.norm(s)
+      c = convictions.norm(c)
+      w = (((1-f)**2 + s**2 + (1-c)**2)/3)**0.5
+      scores += [[w, f, s, c, row]]
+    scores = sorted(scores, key=first)
+    for a in scores[:10]:
+      print(a[:4])
+    print("")
+    for a in scores[-10:]:
+      print(a[:4])
+
+#      tmp = i.guess(row)[1]
+#      return 1
+#      if len(tmp) > 1:
+#        two, one = tmp[-2][0], tmp[-1][0]
+#        n2 = surity = abs(one-two)
+#        n3 = strength = one
+#      else:
+#        n2 = surity = 1
+#        n3 = strength = tmp[-1][0]
+#      n1s + n1
+#      n2s + n2
+#      n3s + n3
+#      all += [(0, n1, n2, n3, row)]
+#    for one in all:
+#      one[1] = n1s.norm(one[1])
+#      one[2] = n1s.norm(one[2])
+#      one[3] = n1s.norm(one[3])
+#    return sorted(all, key=first)
+#
 
 
 def csv(src=None, f=sys.stdin):

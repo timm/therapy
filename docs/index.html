@@ -3,18 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.8.3" />
+<meta name="generator" content="pdoc 0.6.3" />
 <title>there API documentation</title>
 <meta name="description" content="Name:
 there.py : learn how to change, for the better …" />
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
-<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
-<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase;cursor:pointer}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
 </head>
 <body>
 <main>
@@ -83,9 +81,7 @@ timm@ieee.org<br>
 MIT license,<br>
 <a href="https://opensource.org/licenses/MIT">https://opensource.org/licenses/MIT</a></p>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">#!/usr/bin/env python3
 &#34;&#34;&#34;  
 Name:
@@ -150,6 +146,7 @@ from random import shuffle as rshuffle
 # Misc, lib functions
 def opt(d, **types):
   &#34;&#34;&#34;Coerce dictionaries into simple keys
+    random.seed(1)
   whose values are of known `types`.&#34;&#34;&#34;
   d = {re.sub(r&#34;^[-]+&#34;, &#34;&#34;, k): v for k, v in d.items()}
   for k, f in types.items():
@@ -193,6 +190,85 @@ class o:
                   pprint.pformat(dicts(i.__dict__), compact=True))
 
 
+class Col(o):
+  &#34;Summarize columns. Ignore &#39;?&#39; unknown values.&#34;
+  def __init__(i, pos=0, txt=&#34;&#34;, w=1, all=[]):
+    i.n, i.w, i.pos, i.txt = 0, w, pos, txt
+    i.also()
+    [i + x for x in all]
+
+  def __add__(i, x):
+    if x == &#34;?&#34;:
+      return x
+    i.n += 1
+    i.add(x)
+    return x
+
+  def norm(i, x):
+    if x == &#34;?&#34;:
+      return x
+    return i.norm1(x)
+
+  def norm1(i, x): return x
+
+  def dist(i, x, y):
+    return 1 if x == &#34;?&#34; and y == &#34;?&#34; else i.dist1(x, y)
+
+
+class Num(Col):
+  &#34;Summarize numeric columns&#34;
+  def also(i, most=sys.maxsize):
+    i.mu, i.m2, i.sd, i.lo, i.hi = 0, 0, 0, most, -most
+
+  def add(i, x):
+    i.lo = min(x, i.lo)
+    i.hi = max(x, i.hi)
+    d = x - i.mu
+    i.mu += d/i.n
+    i.m2 += d*(x - i.mu)
+    if i.m2 &lt; 0:
+      i.sd = 0
+    elif i.n &lt;= 1:
+      i.sd = 0
+    else:
+      i.sd = (i.m2/(i.n-1))**0.5
+
+  def dist1(i, x, y):
+    if x == &#34;?&#34;:
+      y = i.norm(y)
+      x = 0 if y &gt; 0.5 else 1
+    elif y == &#34;?&#34;:
+      x = i.norm(x)
+      y = 0 if x &gt; 0.5 else 1
+    else:
+      x, y = i.norm(x), i.norm(y)
+    return abs(x-y)
+
+  def like(i, x, *_):
+    v = i.sd**2 + 10**-64
+    nom = math.e**(-1*(x-i.mu)**2/(2*v))
+    denom = (2*math.pi*v)**.5
+    return nom/(denom + 10**-64)
+
+
+class Sym(Col):
+  &#34;Summarize symbolic columns&#34;
+  def also(i):
+    i.seen, i.most, i.mode = {}, 0, None
+
+  def add(i, x):
+    i.seen[x] = i.seen.get(x, 0) + 1
+    if i.seen[x] &gt; i.most:
+      i.most, i.mode = i.seen[x], x
+
+  def dist1(i, x, y):
+    return 0 if x == y else 1
+
+  def like(i, x, prior=1, m=1):
+    print(o(val=i.seen.get(x, 0), x=x, prior=prior, m=m))
+    return (i.seen.get(x, 0) + m*prior)/(i.n + m)
+
+
 class Row(o):
   &#34;&#34;&#34;
   Holds one example from a set of `rows`
@@ -212,30 +288,24 @@ class Row(o):
   def better(i, j):
     c = i._rows.cols
     s1, s2, n = 0, 0, len(c.y) + 0.0001
-    for k in c.y:
-      x = i.bins[k]
-      y = j.bins[k]
-      s1 -= math.e**(c.w[k] * (x - y) / n)
-      s2 -= math.e**(c.w[k] * (y - x) / n)
+    for col in c.y:
+      x = i.bins[col.pos]
+      y = j.bins[col.pos]
+      s1 -= math.e**(col.w * (x - y) / n)
+      s2 -= math.e**(col.w * (y - x) / n)
     return s1 / n &lt; s2 / n
 
   def dist(i, j, what=&#34;x&#34;):
     d, n = 0, 0
-    for c in i._rows.cols[what]:
-      a, b = i.cells[c], j.cells[c]
+    for col in i._rows.cols[what]:
+      a, b = i[col.pos], j[col.pos]
       n += 1
-      if a == &#34;?&#34; and b == &#34;?&#34;:
-        d = 1
-      else:
-        if a == &#34;?&#34;:
-          a = 0 if b &gt; 0.5 else 1
-        if b == &#34;?&#34;:
-          b = 0 if a &gt; 0.5 else 1
-      d += abs(a - b) ^ 2
+      inc = col.dist(a, b)
+      d += inc ** 2
     return (d / (n + 0.001))**0.5
 
   def status(i):
-    return [i[y] for y in i._rows.cols.y]
+    return [i[col.pos] for col in i._rows.cols.y]
 
 
 class Rows(o):
@@ -244,14 +314,21 @@ class Rows(o):
   type descriptions for each column (and `cols` is built from the
   names in the first row).
   &#34;&#34;&#34;
-  def __init__(i, src=[]):
+  def __init__(i, src=None):
     &#34;&#34;&#34;
     Create from `src`, which could be a list,
     a `.csv` file name, or a string.
     &#34;&#34;&#34;
-    i.all, i._bins = [], {}
-    i.cols = o(all={}, w={}, klass=None, x={}, y={}, syms={}, nums={})
-    [i.add(row) for row in csv(src)]
+    i.all = []
+    i.cols = o(all=[], klass=None, x=[], y=[], syms=[], nums=[])
+    if src:
+      [i.add(row) for row in csv(src)]
+
+  def clone(i, all=[]):
+    tmp = Rows()
+    tmp.header([col.txt for col in i.cols.all])
+    [tmp.row(one) for one in all]
+    return tmp
 
   def add(i, row):
     &#34;The first `row` goes to the header. All the rest got to `rows`.&#34;
@@ -270,16 +347,18 @@ class Rows(o):
     c, ch = i.cols, Rows.ch
     c.klass = -1
     for pos, txt in enumerate(lst):
-      c.all[pos] = txt
-      (c.nums if txt[0] in ch.nums else c.syms)[pos] = txt
-      (c.y if txt[0] in ch.goal else c.x)[pos] = txt
-      c.w[pos] = -1 if ch.less in txt else 1
+      w = -1 if ch.less in txt else 1
+      col = (Num if txt[0] in ch.nums else Sym)(pos, txt, w)
+      (c.nums if txt[0] in ch.nums else c.syms).append(col)
+      (c.y if txt[0] in ch.goal else c.x).append(col)
       if ch.klass in txt:
-        c.klass = pos
+        c.klass = col
+      c.all += [col]
 
   def row(i, z):
     &#34;add a new row&#34;
     z = z.cells if isinstance(z, Row) else z
+    [col + val for col, val in zip(i.cols.all, z)]
     i.all += [Row(i, z)]
 
   def bins(i, goal=None, cohen=.2):
@@ -298,15 +377,30 @@ class Rows(o):
           break
       return round((pos + 1) / len(lst), 2)
     # ----------------
-    if len(i._bins) == 0:
-      for x in i.cols.nums:
-        i._bins[x] = bins = Bins.nums(
-            i.all, x=x, goal=goal, cohen=cohen, y=i.cols.klass)
-        for row in i.all:
-          row.bins[x] = apply2Numerics(i._bins[x], row[x])
-      for x in i.cols.syms:
-        i._bins[x] = Bins.syms(i.all, x=x, goal=goal, y=i.cols.klass)
-    return i._bins
+    bins = {}
+    for col in i.cols.nums:
+      x = col.pos
+      bins[x] = Bins.nums(i.all, x=x, goal=goal,
+                          cohen=cohen, y=i.cols.klass.pos)
+      for row in i.all:
+        old = row.bins[x]
+        new = apply2Numerics(bins[x], row[x])
+        row.bins[x] = new
+    for col in i.cols.syms:
+      x = col.pos
+      bins[x] = Bins.syms(i.all, x=x, goal=goal,
+                          y=i.cols.klass.pos)
+    return bins
+
+  def like(i, row, n, m, k, nh):
+    prior = (len(i.all) + k) / (n + k*nh)
+    out = math.log(prior)
+    for col in i.cols.x:
+      val = row[col.pos]
+      if val != &#34;?&#34;:
+        inc = col.like(val, prior, m)
+        out += math.log(inc)
+    return out
 
 
 class Bin(o):
@@ -375,7 +469,7 @@ class Bins:
     &#34;&#34;&#34;
     def split():
       xlo, bins, n = 0, [Bin(0, x)], len(lst)**enough
-      while n &lt; 10 and n &lt; len(lst) / 2:
+      while n &lt; 4 and n &lt; len(lst) / 2:
         n *= 1.2
       for xhi, z in enumerate(lst):
         xx, yy = z[x], z[y]
@@ -459,13 +553,11 @@ class Abcd:
     if (i.known[x] == 1):
       i.a[x] = i.yes + i.no
 
-  def header(i):
+  def report(i):
     print(&#34;&#34;)
     print(&#39;{0:20s} {1:10s} {2:3s}  {3:3s} {4:3s} {5:3s} {6:3s} {7:3s} {8:3s} {9:3s} {10:3s} {11:3s} {12:3s} {13:10s}&#39;.format(
         &#34;db&#34;, &#34;rx&#34;, &#34;n&#34;, &#34;a&#34;, &#34;b&#34;, &#34;c&#34;, &#34;d&#34;, &#34;acc&#34;, &#34;pd&#34;, &#34;pf&#34;, &#34;prec&#34;, &#34;f&#34;, &#34;g&#34;, &#34;class&#34;))
     print(&#39;-&#39;*85)
-
-  def report(i):
     def p(y): return int(100*y + 0.5)
     def n(y): return int(y)
     pd = pf = pn = prec = g = f = acc = 0
@@ -507,51 +599,25 @@ def smo(tab, n1=10):
 
 
 class Seen(o):
-  def __init__(i, rows=[], k=None, cols=None):
-    i.seen, i.h, i.n = {}, {}, 0
-    i.y = -1 if k is None else k
-    n, y = {}, {}
-
-  def known(i, row):
-    y = row.bins[i.y]
-    if y not in i.seen:
-      i.h[y] = 0
-      i.seen[y] = {x: {} for x, _ in enumerate(row)}
-    i.h[y] += 1
-    return i.seen[y]
+  def __init__(i,  rows, m=2, k=1,  y=None):
+    i.rows, i.m, i.k = rows, m, k
+    i.y = -1 if y is None else 1
+    i.ys, i.n = {}, 0
 
   def train(i, row):
+    y = row[i.y]
+    if y not in i.ys:
+      i.ys[y] = i.rows.clone()
     i.n += 1
-    seen = i.known(row)
-    for col in seen:
-      v = row.bins[col]
-      seen[col][v] = seen[col].get(v, 0) + 1
+    i.ys[y].row(row)
 
-  def likes(i, row, cols=None, m=2, k=1):
-    out, best, all = None, -1*10**32, {}
-    for klass in i.seen:
-      seen = i.seen[klass]
-      prior = (i.h[klass] + k) / (i.n + k*len(i.seen))
-      tmp = math.log(prior)
-      for col, val in i.fields(row, cols=cols or row._rows.cols.x):
-        if val != &#34;?&#34;:
-          inc = (seen[col].get(val, 0) + m*prior) / (i.h[klass] + m)
-          tmp += math.log(inc)
-      if tmp &gt; best:
-        best, out = tmp, klass
-      all[klass] = tmp
-    return out, all
-
-  def fields(i, x, cols=None):
-    if cols:
-      for col in cols:
-        yield col, x.bins[col]
-    elif isinstance(x, dict):
-      for col, z in x.items():
-        yield col, z
-    else:
-      for col, z in enumerate(x):
-        yield col, z
+  def guess(i, row):
+    all, ybest, most = {}, None, -10**64
+    for y in i.ys:
+      tmp = all[y] = i.ys[y].like(row, i.n, i.m, i.k, len(i.ys))
+      if tmp &gt; most:
+        ybest, most = y, tmp
+    return ybest, all
 
 
 def csv(src=None, f=sys.stdin):
@@ -619,26 +685,22 @@ def csv(src=None, f=sys.stdin):
 <span>def <span class="ident">ako</span></span>(<span>x, c)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def ako(x, c): return isinstace(x, c)</code></pre>
 </details>
 </dd>
 <dt id="there.csv"><code class="name flex">
-<span>def <span class="ident">csv</span></span>(<span>src=None, f=sys.stdin)</span>
+<span>def <span class="ident">csv</span></span>(<span>src=None, f=<_io.TextIOWrapper name='<stdin>' mode='r' encoding='UTF-8'>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Read from stdio or file or string or list.
+<section class="desc"><p>Read from stdio or file or string or list.
 Kill whitespace or
 comments. Coerce number strings to numbers."Ignore columns if,
-on line one, the name contains '?'.</p></div>
+on line one, the name contains '?'.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def csv(src=None, f=sys.stdin):
   &#34;&#34;&#34;Read from stdio or file or string or list.  Kill whitespace or
   comments. Coerce number strings to numbers.&#34;Ignore columns if,
@@ -697,11 +759,9 @@ on line one, the name contains '?'.</p></div>
 <span>def <span class="ident">first</span></span>(<span>a)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def first(a): return a[0]</code></pre>
 </details>
 </dd>
@@ -709,11 +769,9 @@ on line one, the name contains '?'.</p></div>
 <span>def <span class="ident">last</span></span>(<span>a)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def last(a): return a[-1]</code></pre>
 </details>
 </dd>
@@ -721,14 +779,14 @@ on line one, the name contains '?'.</p></div>
 <span>def <span class="ident">opt</span></span>(<span>d, **types)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Coerce dictionaries into simple keys
-whose values are of known <code>types</code>.</p></div>
+<section class="desc"><p>Coerce dictionaries into simple keys
+random.seed(1)
+whose values are of known <code>types</code>.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def opt(d, **types):
   &#34;&#34;&#34;Coerce dictionaries into simple keys
+    random.seed(1)
   whose values are of known `types`.&#34;&#34;&#34;
   d = {re.sub(r&#34;^[-]+&#34;, &#34;&#34;, k): v for k, v in d.items()}
   for k, f in types.items():
@@ -737,20 +795,18 @@ whose values are of known <code>types</code>.</p></div>
 </details>
 </dd>
 <dt id="there.random"><code class="name flex">
-<span>def <span class="ident">random</span></span>(<span>)</span>
+<span>def <span class="ident">random</span></span>(<span>...)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>random() -&gt; x in the interval [0, 1).</p></div>
+<section class="desc"><p>random() -&gt; x in the interval [0, 1).</p></section>
 </dd>
 <dt id="there.same"><code class="name flex">
 <span>def <span class="ident">same</span></span>(<span>x)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def same(x): return x</code></pre>
 </details>
 </dd>
@@ -758,11 +814,9 @@ whose values are of known <code>types</code>.</p></div>
 <span>def <span class="ident">shuffle</span></span>(<span>a)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def shuffle(a): rshuffle(a); return a</code></pre>
 </details>
 </dd>
@@ -770,11 +824,9 @@ whose values are of known <code>types</code>.</p></div>
 <span>def <span class="ident">smo</span></span>(<span>tab, n1=10)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def smo(tab, n1=10):
   def pairs(lst):
     j = 0
@@ -793,15 +845,13 @@ whose values are of known <code>types</code>.</p></div>
 <dl>
 <dt id="there.Abcd"><code class="flex name class">
 <span>class <span class="ident">Abcd</span></span>
-<span>(</span><span>db='all', rx='all')</span>
+<span>(</span><span>i, db='all', rx='all')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Track set of actual and predictions, report precsion, accuracy,
-false alarm, recall,&hellip;</p></div>
+<section class="desc"><p>Track set of actual and predictions, report precsion, accuracy,
+false alarm, recall,&hellip;</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Abcd:
   &#34;&#34;&#34;Track set of actual and predictions, report precsion, accuracy,
   false alarm, recall,...
@@ -843,13 +893,11 @@ false alarm, recall,&hellip;</p></div>
     if (i.known[x] == 1):
       i.a[x] = i.yes + i.no
 
-  def header(i):
+  def report(i):
     print(&#34;&#34;)
     print(&#39;{0:20s} {1:10s} {2:3s}  {3:3s} {4:3s} {5:3s} {6:3s} {7:3s} {8:3s} {9:3s} {10:3s} {11:3s} {12:3s} {13:10s}&#39;.format(
         &#34;db&#34;, &#34;rx&#34;, &#34;n&#34;, &#34;a&#34;, &#34;b&#34;, &#34;c&#34;, &#34;d&#34;, &#34;acc&#34;, &#34;pd&#34;, &#34;pf&#34;, &#34;prec&#34;, &#34;f&#34;, &#34;g&#34;, &#34;class&#34;))
     print(&#39;-&#39;*85)
-
-  def report(i):
     def p(y): return int(100*y + 0.5)
     def n(y): return int(y)
     pd = pf = pn = prec = g = f = acc = 0
@@ -880,31 +928,13 @@ false alarm, recall,&hellip;</p></div>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="there.Abcd.header"><code class="name flex">
-<span>def <span class="ident">header</span></span>(<span>i)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def header(i):
-  print(&#34;&#34;)
-  print(&#39;{0:20s} {1:10s} {2:3s}  {3:3s} {4:3s} {5:3s} {6:3s} {7:3s} {8:3s} {9:3s} {10:3s} {11:3s} {12:3s} {13:10s}&#39;.format(
-      &#34;db&#34;, &#34;rx&#34;, &#34;n&#34;, &#34;a&#34;, &#34;b&#34;, &#34;c&#34;, &#34;d&#34;, &#34;acc&#34;, &#34;pd&#34;, &#34;pf&#34;, &#34;prec&#34;, &#34;f&#34;, &#34;g&#34;, &#34;class&#34;))
-  print(&#39;-&#39;*85)</code></pre>
-</details>
-</dd>
 <dt id="there.Abcd.knowns"><code class="name flex">
 <span>def <span class="ident">knowns</span></span>(<span>i, x)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def knowns(i, x):
   if not x in i.known:
     i.known[x] = i.a[x] = i.b[x] = i.c[x] = i.d[x] = 0.0
@@ -917,12 +947,14 @@ false alarm, recall,&hellip;</p></div>
 <span>def <span class="ident">report</span></span>(<span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def report(i):
+  print(&#34;&#34;)
+  print(&#39;{0:20s} {1:10s} {2:3s}  {3:3s} {4:3s} {5:3s} {6:3s} {7:3s} {8:3s} {9:3s} {10:3s} {11:3s} {12:3s} {13:10s}&#39;.format(
+      &#34;db&#34;, &#34;rx&#34;, &#34;n&#34;, &#34;a&#34;, &#34;b&#34;, &#34;c&#34;, &#34;d&#34;, &#34;acc&#34;, &#34;pd&#34;, &#34;pf&#34;, &#34;prec&#34;, &#34;f&#34;, &#34;g&#34;, &#34;class&#34;))
+  print(&#39;-&#39;*85)
   def p(y): return int(100*y + 0.5)
   def n(y): return int(y)
   pd = pf = pn = prec = g = f = acc = 0
@@ -956,18 +988,16 @@ false alarm, recall,&hellip;</p></div>
 </dd>
 <dt id="there.Bin"><code class="flex name class">
 <span>class <span class="ident">Bin</span></span>
-<span>(</span><span>z='__alll__', x=0)</span>
+<span>(</span><span>i, z='__alll__', x=0)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>A <code>bin</code> is a core data structure in DUO. It
+<section class="desc"><p>A <code>bin</code> is a core data structure in DUO. It
 runs from some <code>lo</code> to <code>hi</code> value in a column, It is
 associated with some <code>ys</code> values. Some bins have higher
 <code>val</code>ue than others (i.e. better predict for any
-known goal.</p></div>
+known goal.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Bin(o):
   &#34;&#34;&#34;A `bin` is a core data structure in DUO. It
   runs from some `lo` to `hi` value in a column, It is
@@ -1018,11 +1048,9 @@ known goal.</p></div>
 <span>def <span class="ident">inc</span></span>(<span>i, y, want)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def inc(i, y, want):
   k = y == want
   i.ys[k] = i.ys.get(k, 0) + 1</code></pre>
@@ -1032,11 +1060,9 @@ known goal.</p></div>
 <span>def <span class="ident">score</span></span>(<span>i, all, e=1e-05)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Score a bin by prob*support that it selects for the goal.</p></div>
+<section class="desc"><p>Score a bin by prob*support that it selects for the goal.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def score(i, all, e=0.00001):
   &#34;Score a bin by prob*support that it selects for the goal.&#34;
   yes = i.ys.get(1, 0) / (all.ys.get(1, 0) + e)
@@ -1050,13 +1076,11 @@ known goal.</p></div>
 <span>def <span class="ident">selects</span></span>(<span>i, row)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Bin<code>s know the </code>x` index of the column
-they come from (so <code>bin</code>s can be used to select rows
-whose <code>x</code> values fall in between <code>lo</code> and <code>hi</code>.</p></div>
+<section class="desc"><p>Bin<code>s know the</code>x<code>index of the column
+they come from (so</code>bin<code>s can be used to select rows
+whose</code>x<code>values fall in between</code>lo<code>and</code>hi`.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def selects(i, row):
   &#34;&#34;&#34;Bin`s know the `x` index of the column
   they come from (so `bin`s can be used to select rows
@@ -1069,13 +1093,12 @@ whose <code>x</code> values fall in between <code>lo</code> and <code>hi</code>.
 </dd>
 <dt id="there.Bins"><code class="flex name class">
 <span>class <span class="ident">Bins</span></span>
+<span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Bins is a farcade holding code to manage <code>bin</code>s.</p></div>
+<section class="desc"><p>Bins is a farcade holding code to manage <code>bin</code>s.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Bins:
   &#34;Bins is a farcade holding code to manage `bin`s.&#34;
   def syms(lst, x=0, y=-1, goal=None):
@@ -1101,7 +1124,7 @@ whose <code>x</code> values fall in between <code>lo</code> and <code>hi</code>.
     &#34;&#34;&#34;
     def split():
       xlo, bins, n = 0, [Bin(0, x)], len(lst)**enough
-      while n &lt; 10 and n &lt; len(lst) / 2:
+      while n &lt; 4 and n &lt; len(lst) / 2:
         n *= 1.2
       for xhi, z in enumerate(lst):
         xx, yy = z[x], z[y]
@@ -1149,13 +1172,11 @@ whose <code>x</code> values fall in between <code>lo</code> and <code>hi</code>.
 <span>def <span class="ident">nums</span></span>(<span>lst, x=0, y=-1, goal=None, cohen=0.3, enough=0.5, trivial=0.05)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Return bins for columns of numbers. Combine two bins if
+<section class="desc"><p>Return bins for columns of numbers. Combine two bins if
 they are separated by too small amount or if
-they predict poorly for the goal.</p></div>
+they predict poorly for the goal.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def nums(lst, x=0, y=-1, goal=None, cohen=.3,
          enough=.5, trivial=.05):
   &#34;&#34;&#34;
@@ -1165,7 +1186,7 @@ they predict poorly for the goal.</p></div>
   &#34;&#34;&#34;
   def split():
     xlo, bins, n = 0, [Bin(0, x)], len(lst)**enough
-    while n &lt; 10 and n &lt; len(lst) / 2:
+    while n &lt; 4 and n &lt; len(lst) / 2:
       n *= 1.2
     for xhi, z in enumerate(lst):
       xx, yy = z[x], z[y]
@@ -1212,11 +1233,9 @@ they predict poorly for the goal.</p></div>
 <span>def <span class="ident">syms</span></span>(<span>lst, x=0, y=-1, goal=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Return bins for columns of symbols.</p></div>
+<section class="desc"><p>Return bins for columns of symbols.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def syms(lst, x=0, y=-1, goal=None):
   &#34;Return bins for columns of symbols.&#34;
   all = Bin(x=x)
@@ -1234,18 +1253,212 @@ they predict poorly for the goal.</p></div>
 </dd>
 </dl>
 </dd>
-<dt id="there.Row"><code class="flex name class">
-<span>class <span class="ident">Row</span></span>
-<span>(</span><span>rows, cells)</span>
+<dt id="there.Col"><code class="flex name class">
+<span>class <span class="ident">Col</span></span>
+<span>(</span><span>i, pos=0, txt='', w=1, all=[])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Holds one example from a set of <code>rows</code>
-in 'cells' (and, if the row has been descretized,
-in 'bins').</p></div>
+<section class="desc"><p>Summarize columns. Ignore '?' unknown values.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
+<pre><code class="python">class Col(o):
+  &#34;Summarize columns. Ignore &#39;?&#39; unknown values.&#34;
+  def __init__(i, pos=0, txt=&#34;&#34;, w=1, all=[]):
+    i.n, i.w, i.pos, i.txt = 0, w, pos, txt
+    i.also()
+    [i + x for x in all]
+
+  def __add__(i, x):
+    if x == &#34;?&#34;:
+      return x
+    i.n += 1
+    i.add(x)
+    return x
+
+  def norm(i, x):
+    if x == &#34;?&#34;:
+      return x
+    return i.norm1(x)
+
+  def norm1(i, x): return x
+
+  def dist(i, x, y):
+    return 1 if x == &#34;?&#34; and y == &#34;?&#34; else i.dist1(x, y)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="there.o" href="#there.o">o</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="there.Num" href="#there.Num">Num</a></li>
+<li><a title="there.Sym" href="#there.Sym">Sym</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="there.Col.dist"><code class="name flex">
+<span>def <span class="ident">dist</span></span>(<span>i, x, y)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def dist(i, x, y):
+  return 1 if x == &#34;?&#34; and y == &#34;?&#34; else i.dist1(x, y)</code></pre>
+</details>
+</dd>
+<dt id="there.Col.norm"><code class="name flex">
+<span>def <span class="ident">norm</span></span>(<span>i, x)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def norm(i, x):
+  if x == &#34;?&#34;:
+    return x
+  return i.norm1(x)</code></pre>
+</details>
+</dd>
+<dt id="there.Col.norm1"><code class="name flex">
+<span>def <span class="ident">norm1</span></span>(<span>i, x)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def norm1(i, x): return x</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="there.Num"><code class="flex name class">
+<span>class <span class="ident">Num</span></span>
+<span>(</span><span>i, pos=0, txt='', w=1, all=[])</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Summarize numeric columns</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Num(Col):
+  &#34;Summarize numeric columns&#34;
+  def also(i, most=sys.maxsize):
+    i.mu, i.m2, i.sd, i.lo, i.hi = 0, 0, 0, most, -most
+
+  def add(i, x):
+    i.lo = min(x, i.lo)
+    i.hi = max(x, i.hi)
+    d = x - i.mu
+    i.mu += d/i.n
+    i.m2 += d*(x - i.mu)
+    if i.m2 &lt; 0:
+      i.sd = 0
+    elif i.n &lt;= 1:
+      i.sd = 0
+    else:
+      i.sd = (i.m2/(i.n-1))**0.5
+
+  def dist1(i, x, y):
+    if x == &#34;?&#34;:
+      y = i.norm(y)
+      x = 0 if y &gt; 0.5 else 1
+    elif y == &#34;?&#34;:
+      x = i.norm(x)
+      y = 0 if x &gt; 0.5 else 1
+    else:
+      x, y = i.norm(x), i.norm(y)
+    return abs(x-y)
+
+  def like(i, x, *_):
+    v = i.sd**2 + 10**-64
+    nom = math.e**(-1*(x-i.mu)**2/(2*v))
+    denom = (2*math.pi*v)**.5
+    return nom/(denom + 10**-64)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="there.Col" href="#there.Col">Col</a></li>
+<li><a title="there.o" href="#there.o">o</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="there.Num.add"><code class="name flex">
+<span>def <span class="ident">add</span></span>(<span>i, x)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def add(i, x):
+  i.lo = min(x, i.lo)
+  i.hi = max(x, i.hi)
+  d = x - i.mu
+  i.mu += d/i.n
+  i.m2 += d*(x - i.mu)
+  if i.m2 &lt; 0:
+    i.sd = 0
+  elif i.n &lt;= 1:
+    i.sd = 0
+  else:
+    i.sd = (i.m2/(i.n-1))**0.5</code></pre>
+</details>
+</dd>
+<dt id="there.Num.also"><code class="name flex">
+<span>def <span class="ident">also</span></span>(<span>i, most=9223372036854775807)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def also(i, most=sys.maxsize):
+  i.mu, i.m2, i.sd, i.lo, i.hi = 0, 0, 0, most, -most</code></pre>
+</details>
+</dd>
+<dt id="there.Num.dist1"><code class="name flex">
+<span>def <span class="ident">dist1</span></span>(<span>i, x, y)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def dist1(i, x, y):
+  if x == &#34;?&#34;:
+    y = i.norm(y)
+    x = 0 if y &gt; 0.5 else 1
+  elif y == &#34;?&#34;:
+    x = i.norm(x)
+    y = 0 if x &gt; 0.5 else 1
+  else:
+    x, y = i.norm(x), i.norm(y)
+  return abs(x-y)</code></pre>
+</details>
+</dd>
+<dt id="there.Num.like"><code class="name flex">
+<span>def <span class="ident">like</span></span>(<span>i, x, *_)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def like(i, x, *_):
+  v = i.sd**2 + 10**-64
+  nom = math.e**(-1*(x-i.mu)**2/(2*v))
+  denom = (2*math.pi*v)**.5
+  return nom/(denom + 10**-64)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="there.Row"><code class="flex name class">
+<span>class <span class="ident">Row</span></span>
+<span>(</span><span>i, rows, cells)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Holds one example from a set of <code>rows</code>
+in 'cells' (and, if the row has been descretized,
+in 'bins').</p></section>
+<details class="source">
+<summary>Source code</summary>
 <pre><code class="python">class Row(o):
   &#34;&#34;&#34;
   Holds one example from a set of `rows`
@@ -1265,30 +1478,24 @@ in 'bins').</p></div>
   def better(i, j):
     c = i._rows.cols
     s1, s2, n = 0, 0, len(c.y) + 0.0001
-    for k in c.y:
-      x = i.bins[k]
-      y = j.bins[k]
-      s1 -= math.e**(c.w[k] * (x - y) / n)
-      s2 -= math.e**(c.w[k] * (y - x) / n)
+    for col in c.y:
+      x = i.bins[col.pos]
+      y = j.bins[col.pos]
+      s1 -= math.e**(col.w * (x - y) / n)
+      s2 -= math.e**(col.w * (y - x) / n)
     return s1 / n &lt; s2 / n
 
   def dist(i, j, what=&#34;x&#34;):
     d, n = 0, 0
-    for c in i._rows.cols[what]:
-      a, b = i.cells[c], j.cells[c]
+    for col in i._rows.cols[what]:
+      a, b = i[col.pos], j[col.pos]
       n += 1
-      if a == &#34;?&#34; and b == &#34;?&#34;:
-        d = 1
-      else:
-        if a == &#34;?&#34;:
-          a = 0 if b &gt; 0.5 else 1
-        if b == &#34;?&#34;:
-          b = 0 if a &gt; 0.5 else 1
-      d += abs(a - b) ^ 2
+      inc = col.dist(a, b)
+      d += inc ** 2
     return (d / (n + 0.001))**0.5
 
   def status(i):
-    return [i[y] for y in i._rows.cols.y]</code></pre>
+    return [i[col.pos] for col in i._rows.cols.y]</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -1300,19 +1507,17 @@ in 'bins').</p></div>
 <span>def <span class="ident">better</span></span>(<span>i, j)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def better(i, j):
   c = i._rows.cols
   s1, s2, n = 0, 0, len(c.y) + 0.0001
-  for k in c.y:
-    x = i.bins[k]
-    y = j.bins[k]
-    s1 -= math.e**(c.w[k] * (x - y) / n)
-    s2 -= math.e**(c.w[k] * (y - x) / n)
+  for col in c.y:
+    x = i.bins[col.pos]
+    y = j.bins[col.pos]
+    s1 -= math.e**(col.w * (x - y) / n)
+    s2 -= math.e**(col.w * (y - x) / n)
   return s1 / n &lt; s2 / n</code></pre>
 </details>
 </dd>
@@ -1320,24 +1525,16 @@ in 'bins').</p></div>
 <span>def <span class="ident">dist</span></span>(<span>i, j, what='x')</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def dist(i, j, what=&#34;x&#34;):
   d, n = 0, 0
-  for c in i._rows.cols[what]:
-    a, b = i.cells[c], j.cells[c]
+  for col in i._rows.cols[what]:
+    a, b = i[col.pos], j[col.pos]
     n += 1
-    if a == &#34;?&#34; and b == &#34;?&#34;:
-      d = 1
-    else:
-      if a == &#34;?&#34;:
-        a = 0 if b &gt; 0.5 else 1
-      if b == &#34;?&#34;:
-        b = 0 if a &gt; 0.5 else 1
-    d += abs(a - b) ^ 2
+    inc = col.dist(a, b)
+    d += inc ** 2
   return (d / (n + 0.001))**0.5</code></pre>
 </details>
 </dd>
@@ -1345,46 +1542,49 @@ in 'bins').</p></div>
 <span>def <span class="ident">status</span></span>(<span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def status(i):
-  return [i[y] for y in i._rows.cols.y]</code></pre>
+  return [i[col.pos] for col in i._rows.cols.y]</code></pre>
 </details>
 </dd>
 </dl>
 </dd>
 <dt id="there.Rows"><code class="flex name class">
 <span>class <span class="ident">Rows</span></span>
-<span>(</span><span>src=[])</span>
+<span>(</span><span>i, src=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Holds many examples in <code>rows</code>.
+<section class="desc"><p>Holds many examples in <code>rows</code>.
 Also, <code>cols</code> stores
 type descriptions for each column (and <code>cols</code> is built from the
 names in the first row).</p>
 <p>Create from <code>src</code>, which could be a list,
-a <code>.<a title="there.csv" href="#there.csv">csv()</a></code> file name, or a string.</p></div>
+a <code>.csv</code> file name, or a string.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Rows(o):
   &#34;&#34;&#34;
   Holds many examples in `rows`.  Also, `cols` stores
   type descriptions for each column (and `cols` is built from the
   names in the first row).
   &#34;&#34;&#34;
-  def __init__(i, src=[]):
+  def __init__(i, src=None):
     &#34;&#34;&#34;
     Create from `src`, which could be a list,
     a `.csv` file name, or a string.
     &#34;&#34;&#34;
-    i.all, i._bins = [], {}
-    i.cols = o(all={}, w={}, klass=None, x={}, y={}, syms={}, nums={})
-    [i.add(row) for row in csv(src)]
+    i.all = []
+    i.cols = o(all=[], klass=None, x=[], y=[], syms=[], nums=[])
+    if src:
+      [i.add(row) for row in csv(src)]
+
+  def clone(i, all=[]):
+    tmp = Rows()
+    tmp.header([col.txt for col in i.cols.all])
+    [tmp.row(one) for one in all]
+    return tmp
 
   def add(i, row):
     &#34;The first `row` goes to the header. All the rest got to `rows`.&#34;
@@ -1403,16 +1603,18 @@ a <code>.<a title="there.csv" href="#there.csv">csv()</a></code> file name, or a
     c, ch = i.cols, Rows.ch
     c.klass = -1
     for pos, txt in enumerate(lst):
-      c.all[pos] = txt
-      (c.nums if txt[0] in ch.nums else c.syms)[pos] = txt
-      (c.y if txt[0] in ch.goal else c.x)[pos] = txt
-      c.w[pos] = -1 if ch.less in txt else 1
+      w = -1 if ch.less in txt else 1
+      col = (Num if txt[0] in ch.nums else Sym)(pos, txt, w)
+      (c.nums if txt[0] in ch.nums else c.syms).append(col)
+      (c.y if txt[0] in ch.goal else c.x).append(col)
       if ch.klass in txt:
-        c.klass = pos
+        c.klass = col
+      c.all += [col]
 
   def row(i, z):
     &#34;add a new row&#34;
     z = z.cells if isinstance(z, Row) else z
+    [col + val for col, val in zip(i.cols.all, z)]
     i.all += [Row(i, z)]
 
   def bins(i, goal=None, cohen=.2):
@@ -1431,15 +1633,30 @@ a <code>.<a title="there.csv" href="#there.csv">csv()</a></code> file name, or a
           break
       return round((pos + 1) / len(lst), 2)
     # ----------------
-    if len(i._bins) == 0:
-      for x in i.cols.nums:
-        i._bins[x] = bins = Bins.nums(
-            i.all, x=x, goal=goal, cohen=cohen, y=i.cols.klass)
-        for row in i.all:
-          row.bins[x] = apply2Numerics(i._bins[x], row[x])
-      for x in i.cols.syms:
-        i._bins[x] = Bins.syms(i.all, x=x, goal=goal, y=i.cols.klass)
-    return i._bins</code></pre>
+    bins = {}
+    for col in i.cols.nums:
+      x = col.pos
+      bins[x] = Bins.nums(i.all, x=x, goal=goal,
+                          cohen=cohen, y=i.cols.klass.pos)
+      for row in i.all:
+        old = row.bins[x]
+        new = apply2Numerics(bins[x], row[x])
+        row.bins[x] = new
+    for col in i.cols.syms:
+      x = col.pos
+      bins[x] = Bins.syms(i.all, x=x, goal=goal,
+                          y=i.cols.klass.pos)
+    return bins
+
+  def like(i, row, n, m, k, nh):
+    prior = (len(i.all) + k) / (n + k*nh)
+    out = math.log(prior)
+    for col in i.cols.x:
+      val = row[col.pos]
+      if val != &#34;?&#34;:
+        inc = col.like(val, prior, m)
+        out += math.log(inc)
+    return out</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -1449,7 +1666,7 @@ a <code>.<a title="there.csv" href="#there.csv">csv()</a></code> file name, or a
 <dl>
 <dt id="there.Rows.ch"><code class="name">var <span class="ident">ch</span></code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 </dd>
 </dl>
 <h3>Methods</h3>
@@ -1458,11 +1675,9 @@ a <code>.<a title="there.csv" href="#there.csv">csv()</a></code> file name, or a
 <span>def <span class="ident">add</span></span>(<span>i, row)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The first <code>row</code> goes to the header. All the rest got to <code>rows</code>.</p></div>
+<section class="desc"><p>The first <code>row</code> goes to the header. All the rest got to <code>rows</code>.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def add(i, row):
   &#34;The first `row` goes to the header. All the rest got to `rows`.&#34;
   i.row(row) if i.cols.all else i.header(row)</code></pre>
@@ -1472,15 +1687,13 @@ a <code>.<a title="there.csv" href="#there.csv">csv()</a></code> file name, or a
 <span>def <span class="ident">bins</span></span>(<span>i, goal=None, cohen=0.2)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Divide ranges into
+<section class="desc"><p>Divide ranges into
 ranges that best select for <code>goal</code>.
 If
 <code>goal=None</code> then just divide into sqrt(N) bins, that differ
-by more than a small amount (at least <code>.2*sd</code>).</p></div>
+by more than a small amount (at least <code>.2*sd</code>).</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def bins(i, goal=None, cohen=.2):
   &#34;&#34;&#34;
   Divide ranges into  ranges that best select for `goal`.  If
@@ -1497,28 +1710,45 @@ by more than a small amount (at least <code>.2*sd</code>).</p></div>
         break
     return round((pos + 1) / len(lst), 2)
   # ----------------
-  if len(i._bins) == 0:
-    for x in i.cols.nums:
-      i._bins[x] = bins = Bins.nums(
-          i.all, x=x, goal=goal, cohen=cohen, y=i.cols.klass)
-      for row in i.all:
-        row.bins[x] = apply2Numerics(i._bins[x], row[x])
-    for x in i.cols.syms:
-      i._bins[x] = Bins.syms(i.all, x=x, goal=goal, y=i.cols.klass)
-  return i._bins</code></pre>
+  bins = {}
+  for col in i.cols.nums:
+    x = col.pos
+    bins[x] = Bins.nums(i.all, x=x, goal=goal,
+                        cohen=cohen, y=i.cols.klass.pos)
+    for row in i.all:
+      old = row.bins[x]
+      new = apply2Numerics(bins[x], row[x])
+      row.bins[x] = new
+  for col in i.cols.syms:
+    x = col.pos
+    bins[x] = Bins.syms(i.all, x=x, goal=goal,
+                        y=i.cols.klass.pos)
+  return bins</code></pre>
+</details>
+</dd>
+<dt id="there.Rows.clone"><code class="name flex">
+<span>def <span class="ident">clone</span></span>(<span>i, all=[])</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def clone(i, all=[]):
+  tmp = Rows()
+  tmp.header([col.txt for col in i.cols.all])
+  [tmp.row(one) for one in all]
+  return tmp</code></pre>
 </details>
 </dd>
 <dt id="there.Rows.header"><code class="name flex">
 <span>def <span class="ident">header</span></span>(<span>i, lst)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Using the magic characters from <code><a title="there.Rows.ch" href="#there.Rows.ch">Rows.ch</a></code>, divide the columns
+<section class="desc"><p>Using the magic characters from <a title="there.Rows.ch" href="#there.Rows.ch"><code>Rows.ch</code></a>, divide the columns
 into the symbols, the numbers, the x cols, the y cols, the
-klass col. Also, store them all in the <code>all</code> list.</p></div>
+klass col. Also, store them all in the <code>all</code> list.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def header(i, lst):
   &#34;&#34;&#34;
   Using the magic characters from `Rows.ch`, divide the columns
@@ -1528,26 +1758,44 @@ klass col. Also, store them all in the <code>all</code> list.</p></div>
   c, ch = i.cols, Rows.ch
   c.klass = -1
   for pos, txt in enumerate(lst):
-    c.all[pos] = txt
-    (c.nums if txt[0] in ch.nums else c.syms)[pos] = txt
-    (c.y if txt[0] in ch.goal else c.x)[pos] = txt
-    c.w[pos] = -1 if ch.less in txt else 1
+    w = -1 if ch.less in txt else 1
+    col = (Num if txt[0] in ch.nums else Sym)(pos, txt, w)
+    (c.nums if txt[0] in ch.nums else c.syms).append(col)
+    (c.y if txt[0] in ch.goal else c.x).append(col)
     if ch.klass in txt:
-      c.klass = pos</code></pre>
+      c.klass = col
+    c.all += [col]</code></pre>
+</details>
+</dd>
+<dt id="there.Rows.like"><code class="name flex">
+<span>def <span class="ident">like</span></span>(<span>i, row, n, m, k, nh)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def like(i, row, n, m, k, nh):
+  prior = (len(i.all) + k) / (n + k*nh)
+  out = math.log(prior)
+  for col in i.cols.x:
+    val = row[col.pos]
+    if val != &#34;?&#34;:
+      inc = col.like(val, prior, m)
+      out += math.log(inc)
+  return out</code></pre>
 </details>
 </dd>
 <dt id="there.Rows.row"><code class="name flex">
 <span>def <span class="ident">row</span></span>(<span>i, z)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>add a new row</p></div>
+<section class="desc"><p>add a new row</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def row(i, z):
   &#34;add a new row&#34;
   z = z.cells if isinstance(z, Row) else z
+  [col + val for col, val in zip(i.cols.all, z)]
   i.all += [Row(i, z)]</code></pre>
 </details>
 </dd>
@@ -1555,61 +1803,33 @@ klass col. Also, store them all in the <code>all</code> list.</p></div>
 </dd>
 <dt id="there.Seen"><code class="flex name class">
 <span>class <span class="ident">Seen</span></span>
-<span>(</span><span>rows=[], k=None, cols=None)</span>
+<span>(</span><span>i, rows, m=2, k=1, y=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>LIB: Class that can pretty print; that
-can <code>inc</code>rement and <code>__add__</code> their values.</p></div>
+<section class="desc"><p>LIB: Class that can pretty print; that
+can <code>inc</code>rement and <code>__add__</code> their values.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Seen(o):
-  def __init__(i, rows=[], k=None, cols=None):
-    i.seen, i.h, i.n = {}, {}, 0
-    i.y = -1 if k is None else k
-    n, y = {}, {}
-
-  def known(i, row):
-    y = row.bins[i.y]
-    if y not in i.seen:
-      i.h[y] = 0
-      i.seen[y] = {x: {} for x, _ in enumerate(row)}
-    i.h[y] += 1
-    return i.seen[y]
+  def __init__(i,  rows, m=2, k=1,  y=None):
+    i.rows, i.m, i.k = rows, m, k
+    i.y = -1 if y is None else 1
+    i.ys, i.n = {}, 0
 
   def train(i, row):
+    y = row[i.y]
+    if y not in i.ys:
+      i.ys[y] = i.rows.clone()
     i.n += 1
-    seen = i.known(row)
-    for col in seen:
-      v = row.bins[col]
-      seen[col][v] = seen[col].get(v, 0) + 1
+    i.ys[y].row(row)
 
-  def likes(i, row, cols=None, m=2, k=1):
-    out, best, all = None, -1*10**32, {}
-    for klass in i.seen:
-      seen = i.seen[klass]
-      prior = (i.h[klass] + k) / (i.n + k*len(i.seen))
-      tmp = math.log(prior)
-      for col, val in i.fields(row, cols=cols or row._rows.cols.x):
-        if val != &#34;?&#34;:
-          inc = (seen[col].get(val, 0) + m*prior) / (i.h[klass] + m)
-          tmp += math.log(inc)
-      if tmp &gt; best:
-        best, out = tmp, klass
-      all[klass] = tmp
-    return out, all
-
-  def fields(i, x, cols=None):
-    if cols:
-      for col in cols:
-        yield col, x.bins[col]
-    elif isinstance(x, dict):
-      for col, z in x.items():
-        yield col, z
-    else:
-      for col, z in enumerate(x):
-        yield col, z</code></pre>
+  def guess(i, row):
+    all, ybest, most = {}, None, -10**64
+    for y in i.ys:
+      tmp = all[y] = i.ys[y].like(row, i.n, i.m, i.k, len(i.ys))
+      if tmp &gt; most:
+        ybest, most = y, tmp
+    return ybest, all</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -1617,100 +1837,129 @@ can <code>inc</code>rement and <code>__add__</code> their values.</p></div>
 </ul>
 <h3>Methods</h3>
 <dl>
-<dt id="there.Seen.fields"><code class="name flex">
-<span>def <span class="ident">fields</span></span>(<span>i, x, cols=None)</span>
+<dt id="there.Seen.guess"><code class="name flex">
+<span>def <span class="ident">guess</span></span>(<span>i, row)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def fields(i, x, cols=None):
-  if cols:
-    for col in cols:
-      yield col, x.bins[col]
-  elif isinstance(x, dict):
-    for col, z in x.items():
-      yield col, z
-  else:
-    for col, z in enumerate(x):
-      yield col, z</code></pre>
-</details>
-</dd>
-<dt id="there.Seen.known"><code class="name flex">
-<span>def <span class="ident">known</span></span>(<span>i, row)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def known(i, row):
-  y = row.bins[i.y]
-  if y not in i.seen:
-    i.h[y] = 0
-    i.seen[y] = {x: {} for x, _ in enumerate(row)}
-  i.h[y] += 1
-  return i.seen[y]</code></pre>
-</details>
-</dd>
-<dt id="there.Seen.likes"><code class="name flex">
-<span>def <span class="ident">likes</span></span>(<span>i, row, cols=None, m=2, k=1)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def likes(i, row, cols=None, m=2, k=1):
-  out, best, all = None, -1*10**32, {}
-  for klass in i.seen:
-    seen = i.seen[klass]
-    prior = (i.h[klass] + k) / (i.n + k*len(i.seen))
-    tmp = math.log(prior)
-    for col, val in i.fields(row, cols=cols or row._rows.cols.x):
-      if val != &#34;?&#34;:
-        inc = (seen[col].get(val, 0) + m*prior) / (i.h[klass] + m)
-        tmp += math.log(inc)
-    if tmp &gt; best:
-      best, out = tmp, klass
-    all[klass] = tmp
-  return out, all</code></pre>
+<summary>Source code</summary>
+<pre><code class="python">def guess(i, row):
+  all, ybest, most = {}, None, -10**64
+  for y in i.ys:
+    tmp = all[y] = i.ys[y].like(row, i.n, i.m, i.k, len(i.ys))
+    if tmp &gt; most:
+      ybest, most = y, tmp
+  return ybest, all</code></pre>
 </details>
 </dd>
 <dt id="there.Seen.train"><code class="name flex">
 <span>def <span class="ident">train</span></span>(<span>i, row)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def train(i, row):
+  y = row[i.y]
+  if y not in i.ys:
+    i.ys[y] = i.rows.clone()
   i.n += 1
-  seen = i.known(row)
-  for col in seen:
-    v = row.bins[col]
-    seen[col][v] = seen[col].get(v, 0) + 1</code></pre>
+  i.ys[y].row(row)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="there.Sym"><code class="flex name class">
+<span>class <span class="ident">Sym</span></span>
+<span>(</span><span>i, pos=0, txt='', w=1, all=[])</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Summarize symbolic columns</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class Sym(Col):
+  &#34;Summarize symbolic columns&#34;
+  def also(i):
+    i.seen, i.most, i.mode = {}, 0, None
+
+  def add(i, x):
+    i.seen[x] = i.seen.get(x, 0) + 1
+    if i.seen[x] &gt; i.most:
+      i.most, i.mode = i.seen[x], x
+
+  def dist1(i, x, y):
+    return 0 if x == y else 1
+
+  def like(i, x, prior=1, m=1):
+    print(o(val=i.seen.get(x, 0), x=x, prior=prior, m=m))
+    return (i.seen.get(x, 0) + m*prior)/(i.n + m)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="there.Col" href="#there.Col">Col</a></li>
+<li><a title="there.o" href="#there.o">o</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="there.Sym.add"><code class="name flex">
+<span>def <span class="ident">add</span></span>(<span>i, x)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def add(i, x):
+  i.seen[x] = i.seen.get(x, 0) + 1
+  if i.seen[x] &gt; i.most:
+    i.most, i.mode = i.seen[x], x</code></pre>
+</details>
+</dd>
+<dt id="there.Sym.also"><code class="name flex">
+<span>def <span class="ident">also</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def also(i):
+  i.seen, i.most, i.mode = {}, 0, None</code></pre>
+</details>
+</dd>
+<dt id="there.Sym.dist1"><code class="name flex">
+<span>def <span class="ident">dist1</span></span>(<span>i, x, y)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def dist1(i, x, y):
+  return 0 if x == y else 1</code></pre>
+</details>
+</dd>
+<dt id="there.Sym.like"><code class="name flex">
+<span>def <span class="ident">like</span></span>(<span>i, x, prior=1, m=1)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def like(i, x, prior=1, m=1):
+  print(o(val=i.seen.get(x, 0), x=x, prior=prior, m=m))
+  return (i.seen.get(x, 0) + m*prior)/(i.n + m)</code></pre>
 </details>
 </dd>
 </dl>
 </dd>
 <dt id="there.o"><code class="flex name class">
 <span>class <span class="ident">o</span></span>
-<span>(</span><span>**d)</span>
+<span>(</span><span>i, **d)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>LIB: Class that can pretty print; that
-can <code>inc</code>rement and <code>__add__</code> their values.</p></div>
+<section class="desc"><p>LIB: Class that can pretty print; that
+can <code>inc</code>rement and <code>__add__</code> their values.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class o:
   &#34;&#34;&#34;LIB: Class that can pretty print; that
   can `inc`rement and `__add__` their values.&#34;&#34;&#34;
@@ -1741,9 +1990,10 @@ can <code>inc</code>rement and <code>__add__</code> their values.</p></div>
 </details>
 <h3>Subclasses</h3>
 <ul class="hlist">
-<li><a title="there.Bin" href="#there.Bin">Bin</a></li>
+<li><a title="there.Col" href="#there.Col">Col</a></li>
 <li><a title="there.Row" href="#there.Row">Row</a></li>
 <li><a title="there.Rows" href="#there.Rows">Rows</a></li>
+<li><a title="there.Bin" href="#there.Bin">Bin</a></li>
 <li><a title="there.Seen" href="#there.Seen">Seen</a></li>
 </ul>
 </dd>
@@ -1801,7 +2051,6 @@ alt="License" src="https://img.shields.io/badge/license-mit-red"></a>
 <li>
 <h4><code><a title="there.Abcd" href="#there.Abcd">Abcd</a></code></h4>
 <ul class="">
-<li><code><a title="there.Abcd.header" href="#there.Abcd.header">header</a></code></li>
 <li><code><a title="there.Abcd.knowns" href="#there.Abcd.knowns">knowns</a></code></li>
 <li><code><a title="there.Abcd.report" href="#there.Abcd.report">report</a></code></li>
 </ul>
@@ -1822,6 +2071,23 @@ alt="License" src="https://img.shields.io/badge/license-mit-red"></a>
 </ul>
 </li>
 <li>
+<h4><code><a title="there.Col" href="#there.Col">Col</a></code></h4>
+<ul class="">
+<li><code><a title="there.Col.dist" href="#there.Col.dist">dist</a></code></li>
+<li><code><a title="there.Col.norm" href="#there.Col.norm">norm</a></code></li>
+<li><code><a title="there.Col.norm1" href="#there.Col.norm1">norm1</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="there.Num" href="#there.Num">Num</a></code></h4>
+<ul class="">
+<li><code><a title="there.Num.add" href="#there.Num.add">add</a></code></li>
+<li><code><a title="there.Num.also" href="#there.Num.also">also</a></code></li>
+<li><code><a title="there.Num.dist1" href="#there.Num.dist1">dist1</a></code></li>
+<li><code><a title="there.Num.like" href="#there.Num.like">like</a></code></li>
+</ul>
+</li>
+<li>
 <h4><code><a title="there.Row" href="#there.Row">Row</a></code></h4>
 <ul class="">
 <li><code><a title="there.Row.better" href="#there.Row.better">better</a></code></li>
@@ -1831,21 +2097,30 @@ alt="License" src="https://img.shields.io/badge/license-mit-red"></a>
 </li>
 <li>
 <h4><code><a title="there.Rows" href="#there.Rows">Rows</a></code></h4>
-<ul class="">
+<ul class="two-column">
 <li><code><a title="there.Rows.add" href="#there.Rows.add">add</a></code></li>
 <li><code><a title="there.Rows.bins" href="#there.Rows.bins">bins</a></code></li>
 <li><code><a title="there.Rows.ch" href="#there.Rows.ch">ch</a></code></li>
+<li><code><a title="there.Rows.clone" href="#there.Rows.clone">clone</a></code></li>
 <li><code><a title="there.Rows.header" href="#there.Rows.header">header</a></code></li>
+<li><code><a title="there.Rows.like" href="#there.Rows.like">like</a></code></li>
 <li><code><a title="there.Rows.row" href="#there.Rows.row">row</a></code></li>
 </ul>
 </li>
 <li>
 <h4><code><a title="there.Seen" href="#there.Seen">Seen</a></code></h4>
 <ul class="">
-<li><code><a title="there.Seen.fields" href="#there.Seen.fields">fields</a></code></li>
-<li><code><a title="there.Seen.known" href="#there.Seen.known">known</a></code></li>
-<li><code><a title="there.Seen.likes" href="#there.Seen.likes">likes</a></code></li>
+<li><code><a title="there.Seen.guess" href="#there.Seen.guess">guess</a></code></li>
 <li><code><a title="there.Seen.train" href="#there.Seen.train">train</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="there.Sym" href="#there.Sym">Sym</a></code></h4>
+<ul class="">
+<li><code><a title="there.Sym.add" href="#there.Sym.add">add</a></code></li>
+<li><code><a title="there.Sym.also" href="#there.Sym.also">also</a></code></li>
+<li><code><a title="there.Sym.dist1" href="#there.Sym.dist1">dist1</a></code></li>
+<li><code><a title="there.Sym.like" href="#there.Sym.like">like</a></code></li>
 </ul>
 </li>
 <li>
@@ -1857,7 +2132,9 @@ alt="License" src="https://img.shields.io/badge/license-mit-red"></a>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.3</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.3</a>.</p>
 </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
 </body>
 </html>
