@@ -530,58 +530,33 @@ class Seen(o):
         ybest, most = y, tmp
     return ybest, all
 
-  def uncertain(i, lst):
-    all = []
-    frequents, strengths, convictions = Num(), Num(), Num()
+  def acquire(i, lst):
+    "minimze frequent, maximize strength, minimize convinction"
+    def down(z): return -z[0]
+    scores, frequents, strengths, convictions = [], Num(), Num(), Num()
     for row in lst:
-      # want to minimize frequent
-      n1 = frequent = i.rows.like(row, i.n, i.m, i.k, len(i.ys))
-      guesses = sorted(i.guess(row)[1], key=lambda z: -z[0])
-      # want to maximize strength
+      frequent = i.rows.like(row, i.n, i.m, i.k, len(i.ys))
+      guesses = sorted(i.guess(row)[1], key=down)
       strength0 = guesses[0][0]
-      # want to minimize conviction
-      conviction = 0
+      conviction = 1
       if len(guesses) > 1:
         conviction = strength0 - guesses[1][0]
-      # print(f"{frequent:.4} {strength0:4f} {conviction:.4f}")
       frequents + frequent
       strengths + strength0
       convictions + conviction
-      all += [[frequent, strength0, conviction, row]]
-
-    scores = []
-    for f, s, c, row in all:
-      f = frequents.norm(f)
-      s = strengths.norm(s)
-      c = convictions.norm(c)
-      w = (((1-f)**2 + s**2 + (1-c)**2)/3)**0.5
-      scores += [[w, f, s, c, row]]
+      scores += [[0, frequent, strength0, conviction, row]]
+    for one in scores:
+      one[1] = f = frequents.norm(one[1])
+      one[2] = s = strengths.norm(one[2])
+      one[3] = c = convictions.norm(one[3])
+      w1 = 0
+      w2 = 0
+      w3 = 3
+      one[0] = w = (
+          (w1*(1-f)**2 + w2*s**2 + w3*(1-c)**2)/(w1+w2+w3))**0.5
     scores = sorted(scores, key=first)
-    for a in scores[:10]:
-      print(a[:4])
-    print("")
-    for a in scores[-10:]:
-      print(a[:4])
-
-#      tmp = i.guess(row)[1]
-#      return 1
-#      if len(tmp) > 1:
-#        two, one = tmp[-2][0], tmp[-1][0]
-#        n2 = surity = abs(one-two)
-#        n3 = strength = one
-#      else:
-#        n2 = surity = 1
-#        n3 = strength = tmp[-1][0]
-#      n1s + n1
-#      n2s + n2
-#      n3s + n3
-#      all += [(0, n1, n2, n3, row)]
-#    for one in all:
-#      one[1] = n1s.norm(one[1])
-#      one[2] = n1s.norm(one[2])
-#      one[3] = n1s.norm(one[3])
-#    return sorted(all, key=first)
-#
+    #print(scores[0][0], scores[int(len(scores)/2)][0], scores[-1][0])
+    return [last(one) for one in scores]
 
 
 def csv(src=None, f=sys.stdin):

@@ -58,25 +58,29 @@ def test_seen2(): seed0(weather, m=2)
 def test_seen3(): seed0(soybean, m=20)
 
 
-def doubt(csv, m=20):
+def doubt(csv, m=10, n=26):
+  seed0(csv)
   random.seed(1)
   r = Rows(csv)
   s = Seen(r)
-  a = Abcd("seed0", "Seen")
+  a = Abcd("al", "Seen")
   rows = shuffle(r.all)[:]
-  print("L1", len(rows))
   while rows:
     s.train(rows.pop())
-    print(s.n)
     if s.n >= m:
       break
-  print("L2", len(rows))
-  return s.uncertain(rows)
-  for i in s.uncertain(rows):
-    print("lo", i[:3])
-  print("")
-  for i in s.uncertain(rows):
-    print("hi", i[:3])
+  while rows and n > 0:
+    rows = s.acquire(rows)
+    row = rows.pop()
+    a(row[-1], s.guess(row)[0])
+    s.train(row)
+    n -= 1
+    if n < 1:
+      break
+  for row in rows:
+    a(row[-1], s.guess(row)[0])
+
+  a.report()
 
 
 def test_doubt(): doubt(diabetes)
