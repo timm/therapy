@@ -131,6 +131,95 @@ class Col(o):
     return 1 if x == "?" and y == "?" else i.dist1(x, y)
 
 
+class Sample(Col):
+  def __init__(i, pos=0, txt="", all=[], enough=30, dull=[.147, .33, .474][0]):
+    i.n, i.pos, i.txt = 0, pos, txt
+    i.enough = enough
+    i._all = []
+    i.sorted = False
+    i.dull = dull
+    [i + x for x in all]
+    i.rank = 0
+    i._subs = [i]
+
+  def add(i, x):
+    i._all += [x]
+    i.sorted = False
+
+  @property
+  def all(i):
+    if not i.sorted:
+      i._all = sorted(i._all)
+      i.sorted = True
+    return i._all
+
+  def __lt__(i, j):
+    return i.mid() < j.mid()
+
+  def mid(i):
+    n = len(i.all)/2
+    return i.all[int(n)]
+
+  def sd(i):
+    n10 = int(.1*len(i.all))
+    n90 = int(.9*len(i.all))
+    return (i.all[n90] - i.all[n10])/2.56
+
+  def iqr(i):
+    n25 = int(.25*len(i.all))
+    n75 = int(.75*len(i.all))
+    return i.all[n75] - i.all[n25]
+
+  def describe(i, rnd=3):
+    return [round(i.mid(), rnd), round(i.sd(), rnd)]
+
+  def some(i):
+    n = int(max(1, len(i.all)/i.enough))
+    return i.all[::n]
+
+  def same(i, j):
+    lst1, lst2 = i.some(), j.some()
+    n = gt = lt = 0.0
+    for x in lst1:
+      for y in lst2:
+        n += 1
+        if x > y:
+          gt += 1
+        if x < y:
+          lt += 1
+    return abs(lt - gt)/n <= i.dull
+
+  def merge(i, j):
+    if i.same(j):
+      k = Sample(enough=i.enough, dull=i.dull,
+                 all=i._all + j._all)
+      k._subs = i._subs + j._subs
+      return k
+
+
+def rankSamples(bins):
+  def worker(b4):
+    j, now = 0, []
+    while j < len(b4):
+      a = b4[j]
+      if j < len(b4) - 1:
+        b = b4[j+1]
+        ab = a.merge(b)
+        if ab:
+          a = ab
+          j += 1
+      now += [a]
+      j += 1
+    return now if len(now) == len(b4) else worker(now)
+  # ------------------------
+  bins = sorted(bins)
+  tmp = worker(bins[:])
+  for rank, bin in enumerate(tmp):
+    for sub in bin._subs:
+      sub.rank = rank + 1
+  return bins
+
+
 class Num(Col):
   "Summarize numeric columns"
   def also(i, most=sys.maxsize):
@@ -475,11 +564,13 @@ class Abcd:
     if (i.known[x] == 1):
       i.a[x] = i.yes + i.no
 
-  def report(i):
-    print("")
-    print('{0:20s} {1:10s} {2:3s}  {3:3s} {4:3s} {5:3s} {6:3s} {7:3s} {8:3s} {9:3s} {10:3s} {11:3s} {12:3s} {13:10s}'.format(
-        "db", "rx", "n", "a", "b", "c", "d", "acc", "pd", "pf", "prec", "f", "g", "class"))
-    print('-'*85)
+  def report(i, goal=None, cache=None):
+    if not goal:
+      print("")
+      print('{0:20s} {1:10s} {2:3s}  {3:3s} {4:3s} {5:3s} {6:3s} {7:3s} {8:3s} {9:3s} {10:3s} {11:3s} {12:3s} {13:10s}'.format(
+          "db", "rx", "n", "a", "b", "c", "d", "acc", "pd", "pf", "prec", "f", "g", "class"))
+      print('-'*85)
+
     def p(y): return int(100*y + 0.5)
     def n(y): return int(y)
     pd = pf = pn = prec = g = f = acc = 0
@@ -505,8 +596,16 @@ class Abcd:
       if (i.yes + i.no):
         acc = 1.0*i.yes/(i.yes+i.no)
       i.all[x] = o(pd=pd, pf=pf, prec=prec, g=g, f=f, acc=acc)
-      print('{0:20s} {1:10s} {2:3d} {3:3d} {4:3d} {5:3d} {6:3d} {7:3d} {8:3d} {9:3d} {10:3d} {11:3d} {12:3d} {13:10s}'.format(
-          i.db, i.rx, n(b + d), n(a), n(b), n(c), n(d), p(acc), p(pd), p(pf), p(prec), p(f), p(g), x))
+      if not goal:
+        print('{0:20s} {1:10s} {2:3d} {3:3d} {4:3d} {5:3d} {6:3d} {7:3d} {8:3d} {9:3d} {10:3d} {11:3d} {12:3d} {13:10s}'.format(
+            i.db, i.rx, n(b + d), n(a), n(b), n(c), n(d), p(acc), p(pd), p(pf), p(prec), p(f), p(g), x))
+      if x == goal:
+        cache.acc += [acc]
+        cache.pd += [pd]
+        cache.pf += [pf]
+        cache.prec += [prec]
+        cache.f += [f]
+        cache.g += [g]
 
 
 class Seen(o):
@@ -550,12 +649,11 @@ class Seen(o):
       one[2] = s = strengths.norm(one[2])
       one[3] = c = convictions.norm(one[3])
       w1 = 0
-      w2 = 0
-      w3 = 3
+      w2 = 1
+      w3 = 1
       one[0] = w = (
           (w1*(1-f)**2 + w2*s**2 + w3*(1-c)**2)/(w1+w2+w3))**0.5
     scores = sorted(scores, key=first)
-    #print(scores[0][0], scores[int(len(scores)/2)][0], scores[-1][0])
     return [last(one) for one in scores]
 
 

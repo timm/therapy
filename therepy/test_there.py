@@ -41,8 +41,38 @@ def test_tab2():
             b.x, b.xlo, b.xhi, b.val)
 
 
-def seed0(csv, m=20):
+def test_some():
   random.seed(1)
+  n = 1
+  e = 30
+  while n < 1.5:
+    a = [random.random()**0.5 for _ in range(10000)]
+    sa = Sample(all=a, enough=e)
+    sb = Sample(all=[x*n for x in a], enough=e)
+    print(round(n, 3), sa.same(sb))
+    n = n*1.01
+
+
+def test_somes():
+  a = [random.random()**0.5 for _ in range(100)]
+  b = Sample(all=[x*1 for x in a])
+  c = Sample(all=[x*1.116 for x in a])
+  d = Sample(all=[x*1.051 for x in a])
+  e = Sample(all=[x*1.1062 for x in a])
+  f = Sample(all=[x*1.489 for x in a])
+  g = Sample(all=a)
+  b1 = Sample(all=[x*1 for x in a])
+  c1 = Sample(all=[x*1.116 for x in a])
+  d1 = Sample(all=[x*1.051 for x in a])
+  e1 = Sample(all=[x*1.1062 for x in a])
+  f1 = Sample(all=[x*1.489 for x in a])
+  g1 = Sample(all=a)
+  for k in rankSamples([b, c, d, e, f, g, b1, c1, d1, e1, f1, g1]):
+    print(k.rank, k.describe())
+  print(22)
+
+
+def seed0(csv, m=20):
   r = Rows(csv)
   s = Seen(r)
   a = Abcd("seed0", "Seen")
@@ -50,7 +80,7 @@ def seed0(csv, m=20):
     if s.n > m:
       a(one[-1], s.guess(one)[0])
     s.train(one)
-  a.report()
+  return a
 
 
 def test_seen1(): seed0(diabetes)
@@ -58,32 +88,42 @@ def test_seen2(): seed0(weather, m=2)
 def test_seen3(): seed0(soybean, m=20)
 
 
-def doubt(csv, m=10, n=26):
-  seed0(csv)
-  random.seed(1)
+def doubt(csv, inits=50, guesses=50, sample=1000):
   r = Rows(csv)
   s = Seen(r)
   a = Abcd("al", "Seen")
   rows = shuffle(r.all)[:]
   while rows:
     s.train(rows.pop())
-    if s.n >= m:
+    #print("i", end="")
+    inits -= 1
+    if inits < 0:
       break
-  while rows and n > 0:
-    rows = s.acquire(rows)
-    row = rows.pop()
-    a(row[-1], s.guess(row)[0])
-    s.train(row)
-    n -= 1
-    if n < 1:
+  while rows:
+    ordered = s.acquire(rows[:sample])
+    best = ordered.pop()
+    rows = ordered + rows[sample:]
+    a(best[-1], s.guess(best)[0])
+    s.train(best)
+    #print("g", end="")
+    guesses -= 1
+    if guesses < 0:
       break
   for row in rows:
     a(row[-1], s.guess(row)[0])
+  return a
 
-  a.report()
 
-
-def test_doubt(): doubt(diabetes)
+def test_doubt(repeats=20):
+  random.seed(1)
+  base = o(acc=[], pd=[], pf=[], prec=[], f=[], g=[])
+  rx = o(acc=[], pd=[], pf=[], prec=[], f=[], g=[])
+  for r in range(repeats):
+    print("0", end="")
+    seed0(diabetes).report(goal="tested_positive", cache=base)
+  for r in range(repeats):
+    print("1", end="")
+    doubt(diabetes).report(goal="tested_positive", cache=rx)
 
 
 def worker1(csv, goal=None, m=20):
